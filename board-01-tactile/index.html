@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tactile Board — 7 paper, print &amp; stone aesthetics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --wall:#DAD7CF; --wall-2:#CFCBC2; --ink:#1F1E1B; --ink-2:#5C594F; --tape:rgba(255,255,255,.45);
+  }
+  *{box-sizing:border-box; margin:0; padding:0}
+  body{
+    background:
+      radial-gradient(1400px 700px at 50% -10%, #E3E0D8, transparent 70%),
+      linear-gradient(180deg, var(--wall), var(--wall-2));
+    color:var(--ink); font:400 16px/1.6 "Space Grotesk", system-ui, sans-serif;
+  }
+  body::after{content:""; position:fixed; inset:0; pointer-events:none; opacity:.35; mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='w'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='160' height='160' filter='url(%23w)' opacity='0.14'/></svg>")}
+  .wrap{max-width:1240px; margin:0 auto; padding:64px 32px 110px; position:relative}
+
+  /* ---------- header ---------- */
+  header{text-align:center; margin-bottom:56px}
+  .k{font:600 11px/1 "IBM Plex Mono"; letter-spacing:.34em; text-transform:uppercase; color:var(--ink-2); margin-bottom:18px}
+  .k b{color:#B3402E}
+  h1{font:900 clamp(40px,6.6vw,74px)/1.02 "Fraunces"; letter-spacing:-.015em}
+  h1 em{font-style:italic; font-weight:400}
+  .deck{margin:18px auto 0; max-width:620px; color:var(--ink-2); font-size:16.5px}
+  .rule{width:90px; height:2px; background:var(--ink); margin:26px auto 0}
+
+  /* ---------- cheat sheet ---------- */
+  .cheat{display:grid; grid-template-columns:repeat(7,1fr); gap:10px; margin:0 0 70px}
+  .cheat a{background:rgba(255,255,255,.5); border:1px solid rgba(31,30,27,.18); padding:14px 12px;
+    text-decoration:none; color:var(--ink); border-radius:3px; transition:.18s}
+  .cheat a:hover{background:var(--ink); color:#F5F2EA; transform:translateY(-3px)}
+  .cheat .n{font:600 10px/1 "IBM Plex Mono"; letter-spacing:.2em; color:#B3402E; display:block; margin-bottom:8px}
+  .cheat a:hover .n{color:#FFD68A}
+  .cheat .t{font:700 11.5px/1.25 "Space Grotesk"; display:block}
+  .cheat .m{font:400 10px/1.4 "IBM Plex Mono"; color:var(--ink-2); display:block; margin-top:6px}
+  .cheat a:hover .m{color:#D6D2C8}
+  @media(max-width:900px){ .cheat{grid-template-columns:repeat(2,1fr)} }
+
+  /* ---------- pinned cards ---------- */
+  .board{display:grid; grid-template-columns:repeat(3,1fr); gap:44px 34px}
+  @media(max-width:1020px){ .board{grid-template-columns:repeat(2,1fr)} }
+  @media(max-width:660px){ .board{grid-template-columns:1fr} }
+  .pin{position:relative; transform:rotate(var(--r,0deg)); transition:transform .35s cubic-bezier(.2,.9,.25,1)}
+  .pin:hover{transform:rotate(0deg) translateY(-6px)}
+  .pin::before{content:""; position:absolute; left:50%; top:-11px; transform:translateX(-50%);
+    width:18px; height:18px; border-radius:50%;
+    background:radial-gradient(circle at 34% 30%, #fff6 0 18%, var(--pin,#B3402E) 30% 70%, #0004 100%);
+    box-shadow:0 4px 6px -2px rgba(0,0,0,.4)}
+  .sheet{background:#fff; border:1px solid rgba(31,30,27,.16); border-radius:4px; overflow:hidden;
+    box-shadow:0 1px 2px rgba(31,30,27,.1), 0 22px 44px -18px rgba(31,30,27,.38);
+    text-decoration:none; color:var(--ink); display:block}
+  .thumb{position:relative; height:300px; overflow:hidden; background:#EFECE4; border-bottom:1px solid rgba(31,30,27,.12)}
+  .thumb iframe{position:absolute; top:0; left:50%; width:1440px; height:1400px; border:0; transform:translateX(-50%) scale(.62); transform-origin:top center; pointer-events:none}
+  .thumb .go{position:absolute; inset:auto 14px 14px auto; z-index:2; font:600 10.5px/1 "IBM Plex Mono"; letter-spacing:.18em;
+    text-transform:uppercase; background:var(--ink); color:#F5F2EA; padding:10px 13px; border-radius:99px;
+    opacity:0; transform:translateY(6px); transition:.25s}
+  .sheet:hover .go{opacity:1; transform:none}
+  .meta{padding:18px 20px 20px}
+  .meta .idx{font:600 10px/1 "IBM Plex Mono"; letter-spacing:.26em; color:#B3402E; text-transform:uppercase}
+  .meta h3{font:700 19px/1.2 "Fraunces"; margin:8px 0 6px}
+  .meta p{font-size:13px; color:var(--ink-2)}
+  .sw{display:flex; gap:6px; margin-top:14px}
+  .sw i{width:26px; height:14px; border-radius:2px; border:1px solid rgba(31,30,27,.2)}
+
+  /* ---------- footer note ---------- */
+  .foot{margin-top:84px; text-align:center; color:var(--ink-2); font:400 13.5px/1.8 "IBM Plex Mono"}
+  .foot b{color:var(--ink)}
+  .foot .tape{display:inline-block; background:var(--tape); padding:6px 18px; border:1px dashed rgba(31,30,27,.25)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <p class="k"><b>★</b>&nbsp; Design-Carousels · Board 01 — the tactile web</p>
+    <h1>Seven aesthetics <em>that smell like</em> paper &amp; stone.</h1>
+    <p class="deck">Paper, print, riso, newsprint, parchment, slate, concrete. Each card opens a full panel — palette, type pairings, copy-paste CSS recipes, a live mock, and a steal/skip list.</p>
+    <div class="rule"></div>
+  </header>
+
+  <nav class="cheat" aria-label="Cheat sheet">
+    <a href="01-paper.html"><span class="n">01</span><span class="t">Papercraft</span><span class="m">shadows · stack</span></a>
+    <a href="02-editorial.html"><span class="n">02</span><span class="t">Editorial</span><span class="m">grid · rules</span></a>
+    <a href="03-riso.html"><span class="n">03</span><span class="t">Riso</span><span class="m">grain · offset</span></a>
+    <a href="04-newsprint.html"><span class="n">04</span><span class="t">Newsprint</span><span class="m">dots · ink</span></a>
+    <a href="05-parchment.html"><span class="n">05</span><span class="t">Parchment</span><span class="m">vellum · wax</span></a>
+    <a href="06-slate.html"><span class="n">06</span><span class="t">Slate</span><span class="m">muted · calm</span></a>
+    <a href="07-concrete.html"><span class="n">07</span><span class="t">Concrete</span><span class="m">pore · orange</span></a>
+  </nav>
+
+  <main class="board">
+    <article class="pin" style="--r:-1.2deg; --pin:#FF6F61">
+      <a class="sheet" href="01-paper.html">
+        <div class="thumb"><iframe src="01-paper.html" tabindex="-1" loading="lazy" title="Paper UI preview"></iframe><span class="go">Open panel →</span></div>
+        <div class="meta"><span class="idx">Panel 01 — Papercraft</span><h3>Stacked sheets, soft drops</h3>
+          <p>Die-cut blobs, cardstock elevation, one light source. Editorial &amp; portfolio friendly.</p>
+          <div class="sw"><i style="background:#FBF7EF"></i><i style="background:#FF6F61"></i><i style="background:#7ECFB3"></i><i style="background:#FFD68A"></i><i style="background:#221F1A"></i></div>
+        </div>
+      </a>
+    </article>
+    <article class="pin" style="--r:.9deg; --pin:#C8321E">
+      <a class="sheet" href="02-editorial.html">
+        <div class="thumb"><iframe src="02-editorial.html" tabindex="-1" loading="lazy" title="Editorial preview"></iframe><span class="go">Open panel →</span></div>
+        <div class="meta"><span class="idx">Panel 02 — Editorial</span><h3>Rules do the layout</h3>
+          <p>Serif authority, 3-column grid, drop caps, pull quotes, one spot red. Published, not posted.</p>
+          <div class="sw"><i style="background:#F7F4EC"></i><i style="background:#161412"></i><i style="background:#C8321E"></i><i style="background:#E9E4D8"></i><i style="background:#8A857A"></i></div>
+        </div>
+      </a>
+    </article>
+    <article class="pin" style="--r:-.7deg; --pin:#FF48B0">
+      <a class="sheet" href="03-riso.html">
+        <div class="thumb"><iframe src="03-riso.html" tabindex="-1" loading="lazy" title="Riso preview"></iframe><span class="go">Open panel →</span></div>
+        <div class="meta"><span class="idx">Panel 03 — Riso</span><h3>Overprint &amp; misprint</h3>
+          <p>Fluoro spot inks, multiply blends, halftone dots, layers that never quite register.</p>
+          <div class="sw"><i style="background:#F4F1E8"></i><i style="background:#FF48B0"></i><i style="background:#0F6FC6"></i><i style="background:#FFE44D"></i><i style="background:#00A99D"></i></div>
+        </div>
+      </a>
+    </article>
+    <article class="pin" style="--r:1.1deg; --pin:#55524A">
+      <a class="sheet" href="04-newsprint.html">
+        <div class="thumb"><iframe src="04-newsprint.html" tabindex="-1" loading="lazy" title="Newsprint preview"></iframe><span class="go">Open panel →</span></div>
+        <div class="meta"><span class="idx">Panel 04 — Newsprint</span><h3>Density is the design</h3>
+          <p>Cream stock, dot-screen photos, hairlines boxing every section. The interface as Sunday paper.</p>
+          <div class="sw"><i style="background:#EFEBE0"></i><i style="background:#1C1B18"></i><i style="background:#7A1F14"></i><i style="background:#55524A"></i><i style="background:#F4F1E7"></i></div>
+        </div>
+      </a>
+    </article>
+    <article class="pin" style="--r:-1deg; --pin:#A67C2E">
+      <a class="sheet" href="05-parchment.html">
+        <div class="thumb"><iframe src="05-parchment.html" tabindex="-1" loading="lazy" title="Parchment preview"></iframe><span class="go">Open panel →</span></div>
+        <div class="meta"><span class="idx">Panel 05 — Parchment</span><h3>Aged, not ancient</h3>
+          <p>Vellum gradients, deckle wobble, iron-gall text, wax seal in pure CSS. Heritage &amp; storytelling.</p>
+          <div class="sw"><i style="background:#F6EED9"></i><i style="background:#E8D9B8"></i><i style="background:#4A3524"></i><i style="background:#8C2F27"></i><i style="background:#A67C2E"></i></div>
+        </div>
+      </a>
+    </article>
+    <article class="pin" style="--r:.6deg; --pin:#8FB4D9">
+      <a class="sheet" href="06-slate.html">
+        <div class="thumb"><iframe src="06-slate.html" tabindex="-1" loading="lazy" title="Slate preview"></iframe><span class="go">Open panel →</span></div>
+        <div class="meta"><span class="idx">Panel 06 — Slate</span><h3>Lights dimmed, not off</h3>
+          <p>Blue-grey layers, border-first elevation, muted accents. The dark mode that stays calm.</p>
+          <div class="sw"><i style="background:#1E252C"></i><i style="background:#2A343E"></i><i style="background:#33404C"></i><i style="background:#8FB4D9"></i><i style="background:#8FB3A4"></i></div>
+        </div>
+      </a>
+    </article>
+    <article class="pin" style="--r:-.5deg; --pin:#E2703A">
+      <a class="sheet" href="07-concrete.html">
+        <div class="thumb"><iframe src="07-concrete.html" tabindex="-1" loading="lazy" title="Concrete preview"></iframe><span class="go">Open panel →</span></div>
+        <div class="meta"><span class="idx">Panel 07 — Concrete</span><h3>Poured, not designed</h3>
+          <p>Cast slabs with pores, engraved caps, formwork seams, one strip of safety orange.</p>
+          <div class="sw"><i style="background:#22262B"></i><i style="background:#333840"></i><i style="background:#8D8B84"></i><i style="background:#E7E5DF"></i><i style="background:#E2703A"></i></div>
+        </div>
+      </a>
+    </article>
+  </main>
+
+  <p class="foot"><span class="tape"><b>How to read a panel:</b> ref plate → palette (click swatch to copy hex) → type → CSS recipes (click to copy) → live mock → steal/skip. Every panel is built in its own style, so the page itself is the example.</span></p>
+</div>
+</body>
+</html>

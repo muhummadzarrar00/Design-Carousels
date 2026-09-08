@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>04 · Newsprint UI — Tactile Inspiration Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Bodoni:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EFEBE0; --card:#F4F1E7; --ink:#1C1B18; --ink-2:#55524A; --red:#7A1F14; --rule:rgba(28,27,24,.35);
+  }
+  *{box-sizing:border-box; margin:0; padding:0}
+  body{
+    background:var(--paper); color:var(--ink);
+    font:400 16px/1.55 "Lora", Georgia, serif;
+    /* aged-paper halftone wash, very subtle */
+    background-image:
+      radial-gradient(rgba(28,27,24,.05) 1px, transparent 1.4px),
+      radial-gradient(rgba(28,27,24,.04) 1px, transparent 1.4px);
+    background-size:7px 7px, 11px 11px;
+    background-position:0 0, 3px 5px;
+  }
+  .wrap{max-width:1120px; margin:0 auto; padding:48px 30px 92px}
+  a{color:inherit}
+  .mono{font-family:"IBM Plex Mono", ui-monospace, monospace}
+
+  /* ---------- masthead ---------- */
+  header.mast{text-align:center; padding-bottom:22px; border-bottom:2px solid var(--ink); margin-bottom:10px}
+  .flag{display:flex; justify-content:space-between; font:500 10.5px/1 "IBM Plex Mono"; letter-spacing:.18em;
+    text-transform:uppercase; padding:10px 2px; border-bottom:1px solid var(--rule)}
+  .flag a{text-decoration:none; border-bottom:1px dotted var(--ink)}
+  header.mast h1{font:700 clamp(44px,8.4vw,96px)/1 "Libre Bodoni"; letter-spacing:.01em; margin:22px 0 6px}
+  header.mast h1 .amp{font-style:italic; color:var(--red)}
+  .motto{font:italic 400 17px/1.4 "Lora"; color:var(--ink-2); margin-bottom:18px}
+  .hairline{border:0; border-top:1px solid var(--ink); margin:0}
+  .subrule{border:0; border-top:1px solid var(--ink); border-bottom:1px solid var(--rule); height:4px; margin-bottom:48px}
+
+  section{margin-bottom:64px}
+  .secbar{display:flex; align-items:center; gap:14px; margin-bottom:22px}
+  .secbar .name{font:600 12px/1 "IBM Plex Mono"; letter-spacing:.3em; text-transform:uppercase; background:var(--ink); color:var(--paper); padding:7px 12px}
+  .secbar h2{font:700 clamp(22px,3vw,30px)/1.1 "Libre Bodoni"}
+  .secbar .ln{flex:1; border-top:1px solid var(--ink)}
+
+  /* ---------- density columns ---------- */
+  .cols{columns:3; column-gap:32px; column-rule:1px solid var(--rule)}
+  .cols p{margin-bottom:13px; font-size:14.5px; text-align:justify; hyphens:auto}
+  .kicker{font:600 10px/1 "IBM Plex Mono"; letter-spacing:.26em; text-transform:uppercase; color:var(--red); margin-bottom:8px; display:block; text-align:left}
+  .headline{font:700 26px/1.12 "Libre Bodoni"; margin-bottom:8px; text-align:left}
+  .byline{font:400 11.5px/1.5 "IBM Plex Mono"; color:var(--ink-2); margin-bottom:10px; text-align:left}
+
+  /* ---------- palette ---------- */
+  .palette{display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); border:1px solid var(--ink); background:var(--ink)}
+  .palette{gap:1px}
+  .swatch{background:var(--card); padding:16px 16px 14px; cursor:copy; min-height:118px; display:flex; flex-direction:column; justify-content:space-between}
+  .swatch .dot{width:34px; height:34px; border:1px solid var(--ink)}
+  .swatch b{display:block; font:600 10px/1 "IBM Plex Mono"; letter-spacing:.2em; text-transform:uppercase; margin-bottom:4px}
+  .swatch code{font:400 12px/1.4 "IBM Plex Mono"; color:var(--ink-2)}
+
+  /* ---------- type ---------- */
+  .typegrid{display:grid; grid-template-columns:1.2fr 1fr; border:1px solid var(--ink); gap:1px; background:var(--ink)}
+  .spec-main{background:var(--card); padding:36px 34px}
+  .spec-main .big{font:700 clamp(34px,4.6vw,56px)/1.05 "Libre Bodoni"}
+  .spec-main .big em{font-style:italic; color:var(--red)}
+  .spec-main .note{margin-top:16px; font-size:14.5px; color:var(--ink-2); font-style:italic}
+  .spec-side{display:flex; flex-direction:column; gap:1px}
+  .spec-cell{background:var(--card); padding:18px 22px; flex:1}
+  .spec-cell .lbl{font:600 9.5px/1 "IBM Plex Mono"; letter-spacing:.28em; text-transform:uppercase; color:var(--red); margin-bottom:8px}
+  .bodysample{font:400 17px/1.5 "Lora"}
+  .monosample{font:400 13px/1.6 "IBM Plex Mono"; letter-spacing:.02em}
+
+  /* ---------- recipes ---------- */
+  .recipes{display:grid; grid-template-columns:1fr 1fr; border:1px solid var(--ink); gap:1px; background:var(--ink)}
+  .recipe{background:var(--card); padding:20px 22px}
+  .recipe .rhead{display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; gap:12px}
+  .recipe h3{font:600 11px/1 "IBM Plex Mono"; letter-spacing:.22em; text-transform:uppercase}
+  .recipe pre{overflow:auto; font:400 12px/1.7 "IBM Plex Mono", monospace}
+  .copy{border:1px solid var(--ink); background:var(--paper); font:500 9.5px/1 "IBM Plex Mono"; letter-spacing:.16em; text-transform:uppercase; padding:6px 9px; cursor:pointer}
+  .copy:hover{background:var(--ink); color:var(--paper)}
+
+  /* ---------- mock front page ---------- */
+  .papermock{border:1px solid var(--ink); background:var(--card); padding:34px 32px 28px;
+    box-shadow:0 0 0 4px var(--paper), 0 0 0 5px var(--rule); position:relative}
+  .papermock::after{content:""; position:absolute; inset:0; pointer-events:none; opacity:.5;
+    background-image:radial-gradient(rgba(28,27,24,.05) 1px, transparent 1.3px); background-size:4px 4px}
+  .pmmast{display:flex; justify-content:space-between; align-items:baseline; border-bottom:2px solid var(--ink); padding-bottom:10px; margin-bottom:6px}
+  .pmmast h3{font:700 clamp(26px,3.6vw,38px)/1 "Libre Bodoni"; letter-spacing:.01em}
+  .pmmast .m{font:500 10px/1 "IBM Plex Mono"; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-2)}
+  .pmticker{font:500 11px/1 "IBM Plex Mono"; letter-spacing:.06em; border-bottom:1px solid var(--rule); padding:8px 0; color:var(--ink-2); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-bottom:22px}
+  .pmgrid{display:grid; grid-template-columns:1.7fr 1fr 1fr; gap:26px; position:relative; z-index:1}
+  .pmlead .imgbox{height:150px; margin:14px 0 10px; border:1px solid var(--ink);
+    background:radial-gradient(circle at 45% 40%, var(--ink) 1.3px, transparent 1.9px) 0 0/4px 4px,
+               linear-gradient(180deg,#E6E1D2,#D8D2C0);
+    filter:contrast(.8)}
+  .pmlead h4{font:700 clamp(21px,2.4vw,26px)/1.1 "Libre Bodoni"; margin:10px 0 8px}
+  .pmlead p{font-size:14px; text-align:justify; hyphens:auto; color:#37352E}
+  .pmcol h5{font:700 15.5px/1.2 "Libre Bodoni"; padding-bottom:8px; border-bottom:1px solid var(--rule); margin-bottom:10px}
+  .pmitem{padding:10px 0; border-bottom:1px dotted var(--rule)}
+  .pmitem .k{font:500 8.5px/1 "IBM Plex Mono"; letter-spacing:.24em; text-transform:uppercase; color:var(--red); display:block; margin-bottom:5px}
+  .pmitem p{font-size:13px; color:#37352E; line-height:1.45}
+  .pmfoot{display:flex; justify-content:space-between; align-items:center; gap:18px; margin-top:24px; padding-top:14px; border-top:2px solid var(--ink); flex-wrap:wrap; position:relative; z-index:1}
+  .subsbox{border:1px dashed var(--ink); padding:10px 16px; font:400 13.5px/1.5 "Lora"}
+  .subsbox b{font-family:"IBM Plex Mono"; font-size:11px; letter-spacing:.14em; text-transform:uppercase}
+  .subbtn{border:1px solid var(--ink); background:var(--ink); color:var(--paper); font:500 11px/1 "IBM Plex Mono"; letter-spacing:.18em; text-transform:uppercase; padding:12px 16px; cursor:pointer; box-shadow:3px 3px 0 var(--red)}
+  .subbtn:active{transform:translate(2px,2px); box-shadow:1px 1px 0 var(--red)}
+
+  /* ---------- do/don't ---------- */
+  .dd{display:grid; grid-template-columns:1fr 1fr; border:1px solid var(--ink); gap:1px; background:var(--ink)}
+  .do,.dont{background:var(--card); padding:22px 24px}
+  .do h3,.dont h3{font:600 10.5px/1 "IBM Plex Mono"; letter-spacing:.24em; text-transform:uppercase; margin-bottom:14px}
+  .do h3{color:#33562F} .dont h3{color:var(--red)}
+  .do ul,.dont ul{list-style:none}
+  .do li,.dont li{padding-left:24px; position:relative; margin-bottom:9px; font-size:14.5px; line-height:1.5}
+  .do li::before{content:"—"; position:absolute; left:0; color:#33562F; font-weight:700}
+  .dont li::before{content:"×"; position:absolute; left:0; color:var(--red); font-weight:700}
+
+  .refs{font-size:14px; color:var(--ink-2)}
+  .refs a{color:var(--ink); text-decoration:underline; text-decoration-color:var(--red)}
+  nav.pager{display:grid; grid-template-columns:1fr 1fr; gap:1px; border:1px solid var(--ink); background:var(--ink); margin-top:72px}
+  nav.pager a{text-decoration:none; background:var(--card); padding:18px 22px; font:500 13px/1.3 "Lora"; text-align:center}
+  nav.pager a small{display:block; font:500 9.5px/1 "IBM Plex Mono"; letter-spacing:.24em; text-transform:uppercase; color:var(--ink-2); margin-bottom:8px}
+  nav.pager a.next{background:var(--ink); color:var(--paper)}
+  nav.pager a.next small{color:#B9B4A4}
+  @media(max-width:900px){ .cols{columns:2} .pmgrid{grid-template-columns:1fr} .typegrid,.recipes,.dd{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="flag" style="border-top:2px solid var(--ink)">
+    <span>Tactile Board · Panel 04 / 07 · Weather: ink</span>
+    <span style="color:var(--red)">★ 10¢ · All the type that's fit to print</span>
+    <a href="index.html">← Return to board</a>
+  </div>
+
+  <header class="mast">
+    <h1>The Newsprint<span class="amp">™</span> UI</h1>
+    <p class="motto">Cream paper, dot-screen photography, rules everywhere — the interface as Sunday paper.</p>
+    <div class="flag" style="border-top:1px solid var(--rule); border-bottom:0; margin-top:16px">
+      <span>Est. on a web near you</span><span>Vol. 1 · Of Record</span><span>Set in Libre Bodoni + Lora</span>
+    </div>
+  </header>
+  <hr class="subrule">
+
+  <section>
+    <div class="secbar"><span class="name">The Idea</span><h2>Density is the design</h2><span class="ln"></span></div>
+    <div class="cols">
+      <span class="kicker">Overview · Aesthetic</span>
+      <h3 class="headline">Newsprint sells “publication,” not “app.”</h3>
+      <span class="byline">By the Desk · 4 min read</span>
+      <p class="lede">Where editorial-web borrows magazine glamour, newsprint goes working press: an off-white stock, coarse halftone dots for imagery, hairline rules boxing every section, and copy packed close like it was sold by inch.</p>
+      <p>The UI elements stay print-native: square buttons with 2px offset shadows, dotted underlines, marginalia labels in mono. The screen is treated as a broadsheet that happens to be clickable.</p>
+      <p>Best for newsletters, reading products, journalism, indie press, “everything is a newspaper” brand personas (Stripe’s press pages, Substack-era blogs, Aesop-style restraint with dots).</p>
+      <span class="kicker">How it works</span>
+      <h4 class="headline" style="font-size:20px">Three levers, all CSS</h4>
+      <p>First: paper — never #fff; a warm grey-cream at ~93% brightness with a micro dot texture. Second: rules — the layout skeleton is 1px lines, not cards or shadows. Third: halftone — photos become dot-screens, so every image shares the ink budget.</p>
+      <p>Get those three right and even a pricing table looks like a classifieds column, which is the whole point.</p>
+      <p>Typography does the rest: a Didone/Bodoni masthead, an old-style serif for body (Lora, Source Serif), and a mono for kickers, prices and datelines — the “typeset last” voice.</p>
+    </div>
+  </section>
+
+  <figure style="margin:0 0 64px; border:1px solid var(--ink); position:relative">
+    <img src="assets/plate-04-newsprint.jpg" alt="Macro of halftone dots on cream newsprint" style="display:block; width:100%">
+    <figcaption style="position:absolute; right:12px; bottom:12px; background:var(--card); border:1px solid var(--ink); padding:7px 11px; font:500 9.5px/1 'IBM Plex Mono'; letter-spacing:.2em; text-transform:uppercase">Fig. 1 — 65-line halftone on newsprint stock</figcaption>
+  </figure>
+
+  <section>
+    <div class="secbar"><span class="name">Palette</span><h2>Ink budgets, not brand kits</h2><span class="ln"></span></div>
+    <div class="palette">
+      <div class="swatch" data-copy="#EFEBE0"><span class="dot" style="background:#EFEBE0"></span><span><b>News Cream</b><code>#EFEBE0 — page</code></span></div>
+      <div class="swatch" data-copy="#F4F1E7"><span class="dot" style="background:#F4F1E7"></span><span><b>Sheet White</b><code>#F4F1E7 — cards</code></span></div>
+      <div class="swatch" data-copy="#1C1B18"><span class="dot" style="background:#1C1B18"></span><span><b>Press Ink</b><code>#1C1B18 — text/rules</code></span></div>
+      <div class="swatch" data-copy="#55524A"><span class="dot" style="background:#55524A"></span><span><b>Copy Grey</b><code>#55524A — meta</code></span></div>
+      <div class="swatch" data-copy="#7A1F14"><span class="dot" style="background:#7A1F14"></span><span><b>Faded Red</b><code>#7A1F14 — the only color</code></span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="secbar"><span class="name">Type</span><h2>Didone for voice, serif for work, mono for receipts</h2><span class="ln"></span></div>
+    <div class="typegrid">
+      <div class="spec-main">
+        <p class="big">All the News<br>Set in <em>Bodoni.</em></p>
+        <p class="note">Libre Bodoni at 700 for mastheads and heads; its thin horizontals thicken convincingly under “print.” Lora carries body at 14–17px, justified with hyphens and a short measure.</p>
+      </div>
+      <div class="spec-side">
+        <div class="spec-cell"><p class="lbl">Body copy · Lora</p><p class="bodysample">1.55 leading, justified, hyphenated — columns under 70 characters wide.</p></div>
+        <div class="spec-cell"><p class="lbl">Kickers &amp; data · IBM Plex Mono</p><p class="monosample">UPPERCASE · 10px · +0.26em — “WEATHER: INK, 60% CHANCE OF SERIFS”</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="secbar"><span class="name">Recipes</span><h2>Build the press</h2><span class="ln"></span></div>
+    <div class="recipes">
+      <div class="recipe">
+        <div class="rhead"><h3>Halftone images</h3><button class="copy">copy</button></div>
+<pre>.imgbox{
+  background:
+    radial-gradient(#1C1B18 1.3px,
+      transparent 1.9px) 0 0/4px 4px,
+    linear-gradient(180deg,#E6E1D2,#D8D2C0);
+  border:1px solid #1C1B18;
+  filter:contrast(.8);
+}</pre>
+      </div>
+      <div class="recipe">
+        <div class="rhead"><h3>Newspaper rules</h3><button class="copy">copy</button></div>
+<pre>.hr-section{
+  border-top:2px solid #1C1B18;
+  margin:0; position:relative;
+}
+.hr-section::after{content:"";
+  position:absolute; left:0; right:0; top:2px;
+  border-top:1px solid rgba(28,27,24,.35);
+}
+/* 2px + 1px = print double rule */</pre>
+      </div>
+      <div class="recipe">
+        <div class="rhead"><h3>Typeset buttons</h3><button class="copy">copy</button></div>
+<pre>button{
+  border:1px solid #1C1B18;
+  background:#1C1B18; color:#EFEBE0;
+  font:500 11px/1 "IBM Plex Mono";
+  letter-spacing:.18em; text-transform:uppercase;
+  padding:12px 16px;
+  box-shadow:3px 3px 0 #7A1F14;
+}
+button:active{
+  transform:translate(2px,2px);
+  box-shadow:1px 1px 0 #7A1F14;
+}</pre>
+      </div>
+      <div class="recipe">
+        <div class="rhead"><h3>Aged stock background</h3><button class="copy">copy</button></div>
+<pre>body{
+  background:#EFEBE0;
+  background-image:
+    radial-gradient(rgba(28,27,24,.05) 1px,
+      transparent 1.4px),
+    radial-gradient(rgba(28,27,24,.04) 1px,
+      transparent 1.4px);
+  background-size:7px 7px, 11px 11px;
+  background-position:0 0, 3px 5px;
+}</pre>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="secbar"><span class="name">Live Mock</span><h2>A front page that happens to be a UI</h2><span class="ln"></span></div>
+    <div class="papermock">
+      <div class="pmmast">
+        <h3>The Interface Times</h3>
+        <span class="mono">№ 214 · SATURDAY · LOCAL EDITION · 10¢</span>
+      </div>
+      <div class="pmticker">◼ UI IS DEAD ◼ LONG LIVE UI ◼ GRID EATS CARD ◼ HALFTONE OR NOTHING ◼ READ YOUR COLUMNS ◼ JUSTIFIED AND PROUD ◼</div>
+      <div class="pmgrid">
+        <article class="pmlead">
+          <span class="kicker">Lead Story · Product</span>
+          <h4>Ship Read Launches “The Broadsheet” Dashboard: 300 Widgets, One Rule</h4>
+          <div class="imgbox"></div>
+          <p style="font-style:italic; color:#37352E; margin-top:6px; font-size:12px">Above: launch hero, printed at 65 lpi. Sources confirm the design system contains exactly one shadow, and it is “decorative.”</p>
+          <p>In the demo, sections are divided by hairlines, prices are set in mono, and the sign-up button “sits on the paper” with a two-pixel red offset — a look founders have been describing, unprompted, as “trustworthy.” Analysts attribute the trend to fatigue with glass.</p>
+        </article>
+        <aside class="pmcol">
+          <h5>In Brief</h5>
+          <div class="pmitem"><span class="k">Markets</span><p>Serif futures up; sans indices flat. Halftone futures open at 65 lpi.</p></div>
+          <div class="pmitem"><span class="k">Obituaries</span><p>The hero carousel, 2011–2024, survived by three slides.</p></div>
+          <div class="pmitem"><span class="k">Letters</span><p>“Please stop justifying text at 400px.” — A river, angry.</p></div>
+        </aside>
+        <aside class="pmcol">
+          <h5>Classifieds</h5>
+          <div class="pmitem"><span class="k">For sale</span><p>Bodoni, didone, thin hairlines — will not bend. 10¢.</p></div>
+          <div class="pmitem"><span class="k">Wanted</span><p>Baseline grid. Discretion. One red accent, faded.</p></div>
+          <div class="pmitem"><span class="k">Lost</span><p>Rounded corners, 24px radius. Answered to “Material.”</p></div>
+        </aside>
+      </div>
+      <div class="pmfoot">
+        <div class="subsbox"><b>Subscriptions —</b> 1 week of grid for the price of a hot take.</div>
+        <button class="subbtn">Subscribe · 10¢</button>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="secbar"><span class="name">Verdict</span><h2>Steal / skip</h2><span class="ln"></span></div>
+    <div class="dd">
+      <div class="do"><h3>Steal this</h3><ul>
+        <li>Dotted underlines and hairline borders as interaction states — cheap, printy.</li>
+        <li>Section labels set in mono caps — the “last typeset” voice of the page.</li>
+        <li>Halftone all images, including avatars — one technique, whole system.</li>
+        <li>2px + 1px double rules under mastheads and footers.</li>
+      </ul></div>
+      <div class="dont"><h3>Skip this</h3><ul>
+        <li>Pure white anywhere — #fff shatters the paper illusion.</li>
+        <li>3+ columns under 1000px: newsprint density needs measure, not micro-columns.</li>
+        <li>Skeuomorphic coffee stains — texture is the style, props are the costume.</li>
+        <li>Small serif under 12px on LCD — print sizes don’t port to screens.</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="secbar"><span class="name">Reference</span><h2>Go looking</h2><span class="ln"></span></div>
+    <p class="refs">Are.na <a href="https://www.are.na/search?q=newsprint" target="_blank">“newsprint”</a> · <a href="https://www.fontsinuse.com" target="_blank">Fonts In Use</a> under newspaper · study: Stripe Press pages, New York Times “The Upshot” graphics, <em>The Onion</em> front pages, Monocle classifieds · keywords: <em>brochure broadsheet, dot screen, classified layout, dateline mono</em>.</p>
+  </section>
+
+  <nav class="pager">
+    <a href="03-riso.html"><small>← Previous</small>03 — Riso / Risograph</a>
+    <a class="next" href="05-parchment.html"><small>Next →</small>05 — Parchment / Vellum</a>
+  </nav>
+</div>
+
+<script>
+  document.querySelectorAll('.swatch,.copy').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      const txt = el.classList.contains('copy')
+        ? el.closest('.recipe').querySelector('pre').innerText
+        : el.dataset.copy;
+      (navigator.clipboard?.writeText(txt) ?? Promise.reject())
+        .catch(()=>{const t=document.createElement('textarea');t.value=txt;document.body.append(t);t.select();document.execCommand('copy');t.remove();});
+      if(el.classList.contains('copy')){const o=el.textContent; el.textContent='copied ✓'; setTimeout(()=>el.textContent=o,900);}
+      else{const b=el.querySelector('b').textContent; el.querySelector('b').textContent='Copied '+txt; setTimeout(()=>el.querySelector('b').textContent=b,900);}
+    });
+  });
+</script>
+</body>
+</html>

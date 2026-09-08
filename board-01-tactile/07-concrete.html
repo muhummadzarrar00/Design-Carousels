@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>07 · Concrete / Stone UI — Tactile Inspiration Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --slate:#22262B; --slate-2:#2A2F35; --cement:#8D8B84; --cement-lt:#B9B7B0;
+    --stone:#E7E5DF; --orange:#E2703A; --line:rgba(231,229,223,.09);
+  }
+  *{box-sizing:border-box; margin:0; padding:0}
+  body{
+    background:var(--slate); color:var(--stone);
+    font:400 16px/1.65 "Space Grotesk", system-ui, sans-serif;
+  }
+  /* poured-concrete grain over everything */
+  body::after{content:""; position:fixed; inset:0; pointer-events:none; z-index:80; opacity:.5; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='c'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='200' height='200' filter='url(%23c)' opacity='0.28'/></svg>")}
+  .wrap{max-width:1120px; margin:0 auto; padding:72px 32px 96px; position:relative}
+  a{color:inherit; text-decoration:none}
+
+  .topline{display:flex; justify-content:space-between; margin-bottom:44px;
+    font:500 10.5px/1 "IBM Plex Mono"; letter-spacing:.3em; text-transform:uppercase; color:#81848B}
+  .topline a:hover{color:var(--orange)}
+
+  /* ---------- masthead: poured slab ---------- */
+  .masthead{position:relative; background:
+    linear-gradient(180deg,#33373B,#2C3035); padding:64px 52px 56px; margin-bottom:64px;
+    border-radius:2px;
+    box-shadow:0 30px 60px -30px rgba(0,0,0,.8), inset 0 1px 0 rgba(255,255,255,.06), inset 0 -14px 28px -18px rgba(0,0,0,.6);
+    /* formwork seams */
+    background-image:
+      linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+      linear-gradient(180deg,#33373B,#2C3035);
+    background-size:100% 96px, 100% 100%;
+  }
+  /* tie holes at the seam ends */
+  .masthead .ties i{position:absolute; width:9px; height:9px; border-radius:50%;
+    background:#1B1E22; box-shadow:inset 0 1px 1px rgba(0,0,0,.8), 0 1px 0 rgba(255,255,255,.05)}
+  .kicker{display:flex; align-items:center; gap:14px; font:600 11px/1 "IBM Plex Mono"; letter-spacing:.34em;
+    text-transform:uppercase; color:var(--orange); margin-bottom:26px}
+  .kicker::after{content:""; width:56px; height:2px; background:var(--orange)}
+  h1{font:700 clamp(40px,6.4vw,74px)/1 "Space Grotesk"; letter-spacing:-.02em; text-transform:uppercase}
+  h1 .carve{color:#9B9990; text-shadow:0 1px 0 rgba(255,255,255,.09), 0 -1px 0 rgba(0,0,0,.5)}
+  .sub{margin-top:24px; color:#A9ABAD; max-width:58ch; font-size:16.5px}
+  .chips{display:flex; flex-wrap:wrap; gap:10px; margin-top:26px}
+  .chip{font:500 11px/1 "IBM Plex Mono"; letter-spacing:.14em; text-transform:uppercase; padding:10px 13px;
+    background:rgba(0,0,0,.25); border:1px solid var(--line); border-radius:1px}
+
+  section{margin-bottom:76px}
+  h2{display:flex; align-items:baseline; gap:16px; margin-bottom:24px;
+    font:700 clamp(19px,2.4vw,25px)/1.1 "Space Grotesk"; text-transform:uppercase; letter-spacing:-.005em}
+  h2 .no{font:500 12px/1 "IBM Plex Mono"; color:#6E7176; letter-spacing:.2em}
+  h2 .ln{flex:1; border-top:1px solid var(--line)}
+
+  .slab{background:linear-gradient(180deg,#333840,#2D3138); border:1px solid var(--line); border-radius:2px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 18px 36px -20px rgba(0,0,0,.7); padding:28px}
+
+  /* ---------- palette ---------- */
+  .palette{display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:14px}
+  .swatch{height:150px; padding:16px; display:flex; flex-direction:column; justify-content:flex-end; cursor:copy;
+    border-radius:2px; position:relative; overflow:hidden;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.12), inset 0 -10px 18px -12px rgba(0,0,0,.55), 0 14px 26px -16px rgba(0,0,0,.8);
+    transition:transform .25s cubic-bezier(.2,.8,.2,1)}
+  .swatch::after{content:""; position:absolute; inset:0; opacity:.35; mix-blend-mode:overlay; pointer-events:none;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='140' height='140' filter='url(%23n)' opacity='.4'/></svg>")}
+  .swatch:hover{transform:translateY(-4px)}
+  .swatch b{font:600 12px/1 "Space Grotesk"; letter-spacing:.08em; text-transform:uppercase; margin-bottom:7px}
+  .swatch code{font:400 12px/1.4 "IBM Plex Mono"; opacity:.85}
+
+  /* ---------- type ---------- */
+  .typegrid{display:grid; grid-template-columns:1.2fr 1fr; gap:14px}
+  .spec-main .big{font:700 clamp(36px,5vw,58px)/.98 "Space Grotesk"; text-transform:uppercase; letter-spacing:-.015em}
+  .spec-main .big .carve{color:#9B9990; text-shadow:0 1px 0 rgba(255,255,255,.09), 0 -1px 0 rgba(0,0,0,.5)}
+  .spec-main .note{margin-top:20px; color:#A9ABAD; font-size:14.5px; max-width:52ch}
+  .spec-side{display:flex; flex-direction:column; gap:14px}
+  .spec-cell{flex:1}
+  .spec-cell .lbl{font:500 9.5px/1 "IBM Plex Mono"; letter-spacing:.3em; text-transform:uppercase; color:var(--orange); margin-bottom:12px}
+  .grotesk-s{font:500 19px/1.4 "Space Grotesk"}
+  .mono-s{font:400 13px/1.8 "IBM Plex Mono"; color:#B9BAC0}
+
+  /* ---------- recipes ---------- */
+  .recipes{display:grid; grid-template-columns:repeat(auto-fit,minmax(330px,1fr)); gap:14px}
+  .recipe{display:flex; flex-direction:column}
+  .recipe .rhead{display:flex; justify-content:space-between; align-items:center; padding:20px 22px 12px}
+  .recipe h3{font:600 12px/1 "IBM Plex Mono"; letter-spacing:.16em; text-transform:uppercase}
+  .recipe pre{margin:0; padding:0 22px 22px; overflow:auto; font:400 12.2px/1.75 "IBM Plex Mono", monospace; color:#C9CACD}
+  .copy{border:1px solid var(--line); background:rgba(0,0,0,.25); color:#B9BAC0; font:500 10px/1 "IBM Plex Mono";
+    letter-spacing:.16em; text-transform:uppercase; padding:8px 11px; cursor:pointer; border-radius:1px}
+  .copy:hover{border-color:var(--orange); color:var(--orange)}
+
+  /* ---------- mock: studio site ---------- */
+  .site{border:1px solid var(--line); border-radius:2px; overflow:hidden; background:#1C1F24;
+    box-shadow:0 40px 80px -40px rgba(0,0,0,.9)}
+  .site .bar{display:flex; justify-content:space-between; align-items:center; padding:18px 26px; border-bottom:1px solid var(--line);
+    background:linear-gradient(180deg,#2A2E34,#262A30)}
+  .wordmark{font:700 15px/1 "Space Grotesk"; letter-spacing:.12em; text-transform:uppercase}
+  .wordmark span{color:var(--orange)}
+  .site nav .ni{font:500 10.5px/1 "IBM Plex Mono"; letter-spacing:.22em; text-transform:uppercase; color:#81848B}
+  .site .bar nav{display:flex; gap:22px}
+  .site .bar nav a{font:500 10.5px/1 "IBM Plex Mono"; letter-spacing:.22em; text-transform:uppercase; color:#81848B}
+  .site .bar nav a:hover{color:var(--stone)}
+  .hero{display:grid; grid-template-columns:1.15fr .85fr; gap:0}
+  .hero .txt{padding:46px 40px 52px; border-right:1px solid var(--line)}
+  .hero h3{font:700 clamp(30px,4vw,46px)/1.02 "Space Grotesk"; text-transform:uppercase; letter-spacing:-.015em}
+  .hero h3 .num{color:#5A5E64; font:500 .9em/1 "IBM Plex Mono"; margin-right:10px}
+  .hero p{margin-top:18px; color:#A9ABAD; font-size:14.5px; max-width:44ch}
+  .hero .tick{width:44px; height:4px; background:var(--orange); margin:24px 0}
+  .hero .view{display:inline-flex; align-items:center; gap:10px; font:600 11px/1 "IBM Plex Mono"; letter-spacing:.26em; text-transform:uppercase;
+    border-bottom:1px solid var(--stone); padding-bottom:6px; cursor:pointer}
+  .hero .view:hover{border-color:var(--orange); color:var(--orange)}
+  .projimg{position:relative; min-height:300px; background:
+      linear-gradient(180deg, rgba(231,229,223,.10), rgba(0,0,0,.15)),
+      repeating-linear-gradient(90deg, rgba(255,255,255,.05) 0 2px, transparent 2px 90px),
+      radial-gradient(120% 90% at 20% 0%, #4A4F55, #2E3238 70%)}
+  .projimg::after{content:""; position:absolute; left:24px; top:24px; width:120px; height:120px; border:1px solid rgba(231,229,223,.25)}
+  .projimg .plate-no{position:absolute; right:24px; bottom:20px; font:600 10px/1 "IBM Plex Mono"; letter-spacing:.28em; color:var(--stone); background:rgba(0,0,0,.45); padding:8px 10px; border-left:2px solid var(--orange)}
+  .idx{border-top:1px solid var(--line)}
+  .idx .row{display:grid; grid-template-columns:64px 1fr auto 90px; gap:18px; align-items:center; padding:16px 26px; border-bottom:1px solid var(--line);
+    transition:background .2s}
+  .idx .row:hover{background:#23262C}
+  .idx .row:hover .ttl{color:var(--orange)}
+  .idx .no{font:500 12px/1 "IBM Plex Mono"; color:#6E7176}
+  .idx .ttl{font:600 15px/1 "Space Grotesk"; text-transform:uppercase; letter-spacing:.03em}
+  .idx .mat{font:400 11px/1 "IBM Plex Mono"; color:#81848B; letter-spacing:.12em}
+  .idx .yr{font:400 11px/1 "IBM Plex Mono"; color:#81848B; text-align:right}
+
+  /* ---------- do/don't ---------- */
+  .dd{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+  .do h3,.dont h3{font:600 11px/1 "IBM Plex Mono"; letter-spacing:.22em; text-transform:uppercase; margin-bottom:14px}
+  .do h3{color:#9FB89A} .dont h3{color:var(--orange)}
+  .do ul,.dont ul{list-style:none}
+  .do li,.dont li{padding-left:22px; position:relative; margin-bottom:10px; font-size:14.5px; color:#B9BAC0}
+  .do li::before{content:"▮"; position:absolute; left:0; font-size:10px; top:5px; color:#9FB89A}
+  .dont li::before{content:"▯"; position:absolute; left:0; font-size:10px; top:5px; color:var(--orange)}
+
+  .refs{color:#A9ABAD; font-size:14.5px}
+  .refs a{color:var(--stone); border-bottom:1px solid var(--orange)}
+  nav.pager{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:72px}
+  nav.pager a{padding:22px 26px; font:600 13.5px/1.3 "Space Grotesk"; text-transform:uppercase; letter-spacing:.04em}
+  nav.pager a small{display:block; font:500 9.5px/1 "IBM Plex Mono"; letter-spacing:.3em; text-transform:uppercase; color:#6E7176; margin-bottom:10px}
+  nav.pager a.next{background:var(--stone); color:var(--slate); border-color:var(--stone); text-align:right}
+  @media(max-width:880px){ .typegrid,.dd,.hero{grid-template-columns:1fr} .hero .txt{border-right:0; border-bottom:1px solid var(--line)} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topline">
+    <span>TACTILE BOARD — PANEL 07 / 07</span>
+    <a href="index.html">← BACK TO BOARD</a>
+  </div>
+
+  <header class="masthead">
+    <span class="ties"><i style="left:26px; top:92px"></i><i style="right:26px; top:92px"></i><i style="left:26px; bottom:-4px"></i><i style="right:26px; bottom:-4px"></i></span>
+    <p class="kicker">Concrete / Stone UI</p>
+    <h1>Interfaces <span class="carve">poured,</span><br>not designed.</h1>
+    <p class="sub">Raw material as UI: cast-grey slabs with visible pores, engraved lettering, formwork seams, and exactly one strip of safety orange. Brutalism that behaves itself — heavy, quiet, and structurally honest.</p>
+    <div class="chips">
+      <span class="chip">Best for — architecture studios</span><span class="chip">galleries</span>
+      <span class="chip">photographers</span><span class="chip">industrial / maker brands</span><span class="chip">thesis portfolios</span>
+    </div>
+  </header>
+
+  <figure style="margin:0 0 64px; border:1px solid var(--line); border-radius:2px; overflow:hidden">
+    <img src="assets/plate-07-concrete.jpg" alt="Concrete slabs on dark slate with orange accent strip" style="display:block; width:100%; filter:contrast(.95)">
+    <figcaption style="padding:12px 18px; font:500 10px/1 'IBM Plex Mono'; letter-spacing:.26em; text-transform:uppercase; color:#81848B; border-top:1px solid var(--line); background:#262A30">Ref plate — cast samples, formwork seams, single orange marker</figcaption>
+  </figure>
+
+  <section>
+    <h2><span class="no">01</span>Palette — an aggregate mix <span class="ln"></span></h2>
+    <div class="palette">
+      <div class="swatch" style="background:#22262B; color:var(--stone)" data-copy="#22262B"><b>Wet Slate</b><code>#22262B — base</code></div>
+      <div class="swatch" style="background:#333840; color:var(--stone)" data-copy="#333840"><b>Form Grey</b><code>#333840 — surface</code></div>
+      <div class="swatch" style="background:#8D8B84; color:#1B1E22" data-copy="#8D8B84"><b>Cast Concrete</b><code>#8D8B84 — mid</code></div>
+      <div class="swatch" style="background:#B9B7B0; color:#1B1E22" data-copy="#B9B7B0"><b>Cement</b><code>#B9B7B0 — engraved</code></div>
+      <div class="swatch" style="background:#E7E5DF; color:#22262B" data-copy="#E7E5DF"><b>Honed Stone</b><code>#E7E5DF — text</code></div>
+      <div class="swatch" style="background:#E2703A; color:#1B1E22" data-copy="#E2703A"><b>Safety Orange</b><code>#E2703A — 1% usage</code></div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="no">02</span>Type — engineering labels, not voices <span class="ln"></span></h2>
+    <div class="typegrid">
+      <div class="slab spec-main">
+        <p class="big">Concrete <span class="carve">doesn’t</span><br>use italics.</p>
+        <p class="note">Space Grotesk: geometric, slightly weird, reads like signage cast into a facade — all-caps at heavy weight with −0.02em tracking. IBM Plex Mono does every label, dimension and date. Two families, zero decoration, letterspacing ≥ +0.2em on anything small.</p>
+      </div>
+      <div class="spec-side">
+        <div class="slab spec-cell"><p class="lbl">Display · Space Grotesk 700</p><p class="grotesk-s">BRUTAL, BUT ALIGNED — uppercase heads, negative tracking, nothing rounded.</p></div>
+        <div class="slab spec-cell"><p class="lbl">Labels · IBM Plex Mono</p><p class="mono-s">PROJECT 04 · 60°6'N · BAU 12/0.4 · EST. MMXXVI — spec sheets are design.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="no">03</span>Recipes — the material in CSS <span class="ln"></span></h2>
+    <div class="recipes">
+      <div class="slab recipe">
+        <div class="rhead"><h3>Cast-slab surface</h3><button class="copy">copy</button></div>
+<pre>.slab{
+  background:linear-gradient(180deg,#333840,#2D3138);
+  border:1px solid rgba(231,229,223,.09);
+  border-radius:2px; /* never rounder */
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.05),   /* top glint */
+    0 18px 36px -20px rgba(0,0,0,.7);     /* mass */
+}</pre>
+      </div>
+      <div class="slab recipe">
+        <div class="rhead"><h3>Poured-noise texture</h3><button class="copy">copy</button></div>
+<pre>body::after{
+  content:""; position:fixed; inset:0;
+  pointer-events:none; opacity:.5;
+  mix-blend-mode:overlay;
+  /* SVG: feTurbulence fractalNoise,
+     baseFrequency .9, numOctaves 2,
+     rect opacity .28 — pores, not sand */
+  background:url("noise.svg");
+}</pre>
+      </div>
+      <div class="slab recipe">
+        <div class="rhead"><h3>Engraved lettering</h3><button class="copy">copy</button></div>
+<pre>.carve{
+  color:#9B9990;
+  text-shadow:
+    0 1px 0 rgba(255,255,255,.09), /* lip catches light */
+    0 -1px 0 rgba(0,0,0,.5);       /* groove shadow */
+}
+/* one light source, from above —
+   engraved ≠ embossed ≠ neon */</pre>
+      </div>
+      <div class="slab recipe">
+        <div class="rhead"><h3>Formwork seams</h3><button class="copy">copy</button></div>
+<pre>.panel{
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px,
+      transparent 1px);
+  background-size:100% 96px;
+}
+/* add "tie holes": 9px dark dots
+   inset 26px from edges, at the
+   seam line. Instant cast panel. */</pre>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="no">04</span>Live mock — studio index page <span class="ln"></span></h2>
+    <div class="site">
+      <div class="bar">
+        <span class="wordmark">Atelier&nbsp;Béton<span>.</span></span>
+        <nav>
+          <a href="#work">Work</a><a href="#mat">Materials</a><a href="#studio">Studio</a><a href="#contact">Contact</a>
+        </nav>
+      </div>
+      <div class="hero">
+        <div class="txt">
+          <h3><span class="num">01</span>Chapel of<br>Raw Light</h3>
+          <div class="tick"></div>
+          <p>Cast in place, finished nowhere. The building’s only ornament is where the formwork was. A portfolio in this style says the same thing about the site.</p>
+          <span class="view">View Catalog →</span>
+        </div>
+        <div class="projimg"><span class="plate-no">PLATE 001 — SITE / WEST</span></div>
+      </div>
+      <div class="idx">
+        <div class="row"><span class="no">02</span><span class="ttl">Museum of Quiet Objects</span><span class="mat">CONCRETE / GLASS</span><span class="yr">2025</span></div>
+        <div class="row"><span class="no">03</span><span class="ttl">Row Houses, East Quarry</span><span class="mat">STONE / STEEL</span><span class="yr">2024</span></div>
+        <div class="row"><span class="no">04</span><span class="ttl">Café Aggregate</span><span class="mat">CONCRETE / OAK</span><span class="yr">2024</span></div>
+        <div class="row"><span class="no">05</span><span class="ttl">Observation Deck 03</span><span class="mat">EXPOSED CAST</span><span class="yr">2023</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="no">05</span>Steal / skip <span class="ln"></span></h2>
+    <div class="dd">
+      <div class="slab do"><h3>Steal this</h3><ul>
+        <li>Texture at 15–30% overlay opacity, always <code>mix-blend-mode:overlay</code> — pores, not TV snow.</li>
+        <li>Border-radius ≤ 4px. Corners should look struck from a mold.</li>
+        <li>Hover states by material logic: rows darken, labels shift to orange, nothing “lifts.”</li>
+        <li>Micro-labels in mono with +0.2em tracking: spec-sheet text is free architecture.</li>
+      </ul></div>
+      <div class="slab dont"><h3>Skip this</h3><ul>
+        <li>Photos of brick walls as backgrounds — that’s wallpaper, not concrete UI.</li>
+        <li>Texture on top of body text; grain is for surfaces, type stays legible ≥ 4.5:1.</li>
+        <li>Grey-on-grey hero copy at 13px (#5A5E64 on #4A4F55 is an accessibility report waiting to happen).</li>
+        <li>Orange everywhere. One strip per screen. It’s a safety marking.</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="no">06</span>Go looking <span class="ln"></span></h2>
+    <p class="refs">Are.na <a href="https://www.are.na/search?q=brutalism%20web" target="_blank">“brutalism web”</a> · <a href="https://godly.website" target="_blank">godly.website</a> · study: Tadao Ando monographs for restraint, Bureau A / Herzog website archives, “aesop-style” material pages · keywords: <em>brutalist web, cast concrete texture, engraved type, formwork, safety orange</em>.</p>
+  </section>
+
+  <nav class="pager">
+    <a class="slab" href="06-slate.html"><small>← Previous</small>06 — Slate / Charcoal</a>
+    <a class="next" href="index.html"><small>The board</small>All 7 panels + cheat sheet</a>
+  </nav>
+</div>
+
+<script>
+  document.querySelectorAll('.swatch,.copy').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      const txt = el.classList.contains('copy')
+        ? el.closest('.recipe').querySelector('pre').innerText
+        : el.dataset.copy;
+      (navigator.clipboard?.writeText(txt) ?? Promise.reject())
+        .catch(()=>{const t=document.createElement('textarea');t.value=txt;document.body.append(t);t.select();document.execCommand('copy');t.remove();});
+      if(el.classList.contains('copy')){const o=el.textContent; el.textContent='copied'; setTimeout(()=>el.textContent=o,900);}
+      else{const b=el.querySelector('b').textContent; el.querySelector('b').textContent='Copied'; setTimeout(()=>el.querySelector('b').textContent=b,900);}
+    });
+  });
+</script>
+</body>
+</html>

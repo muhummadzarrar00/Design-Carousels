@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>02 · Editorial / Print-inspired — Tactile Inspiration Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;1,8..60,400&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --news:#F7F4EC; --ink:#161412; --red:#C8321E; --grey:#8A857A; --rule:rgba(22,20,18,.22);
+  }
+  *{box-sizing:border-box; margin:0; padding:0}
+  body{background:var(--news); color:var(--ink);
+    font:400 17px/1.7 "Source Serif 4", Georgia, serif;
+    background-image:repeating-linear-gradient(0deg, rgba(22,20,18,.025) 0 1px, transparent 1px 4px);}
+  .wrap{max-width:1120px; margin:0 auto; padding:56px 32px 96px}
+  a{color:inherit}
+  .sans{font-family:"Archivo", system-ui, sans-serif}
+
+  /* ---------- newspaper masthead ---------- */
+  .rule-double{border-top:4px double var(--ink); border-bottom:1px solid var(--ink); padding:6px 0}
+  .dateline{display:flex; justify-content:space-between; font:600 11px/1 "Archivo";
+    letter-spacing:.24em; text-transform:uppercase; color:var(--ink); padding:10px 2px 14px;
+    border-bottom:1px solid var(--ink)}
+  .dateline a{text-decoration:none}
+  .dateline a:hover{color:var(--red)}
+  header.mast{padding:38px 0 26px; text-align:center; border-bottom:4px double var(--ink); margin-bottom:56px}
+  header.mast .kicker{font:700 11.5px/1 "Archivo"; letter-spacing:.42em; text-transform:uppercase; color:var(--red); margin-bottom:18px}
+  header.mast h1{font:900 clamp(46px,8vw,92px)/.95 "Playfair Display"; letter-spacing:-.015em}
+  header.mast h1 em{font-style:italic; font-weight:500}
+  header.mast .deck{font:400 18px/1.5 "Source Serif 4"; color:#4A463F; margin:18px auto 0; max-width:640px; font-style:italic}
+  header.mast .byline{margin-top:20px; font:600 11px/1 "Archivo"; letter-spacing:.3em; text-transform:uppercase; color:var(--grey)}
+
+  section{margin-bottom:64px}
+  .sechead{display:flex; align-items:baseline; gap:16px; border-bottom:1px solid var(--ink); padding-bottom:8px; margin-bottom:24px}
+  .sechead .no{font:900 13px/1 "Archivo"; color:var(--red); letter-spacing:.1em}
+  .sechead h2{font:700 15px/1 "Archivo"; letter-spacing:.26em; text-transform:uppercase}
+  .cols3{columns:3; column-gap:36px; column-rule:1px solid var(--rule)}
+  .cols2{columns:2; column-gap:36px; column-rule:1px solid var(--rule)}
+  .cols3 p, .cols2 p{margin-bottom:14px; font-size:15.5px; text-align:justify; hyphens:auto}
+  .lede::first-letter{font:900 4.6em/.78 "Playfair Display"; float:left; padding:.06em .1em 0 0; color:var(--red)}
+
+  /* ---------- palette ---------- */
+  .palette{display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:0; border:1px solid var(--ink)}
+  .swatch{padding:18px 18px 16px; min-height:120px; display:flex; flex-direction:column; justify-content:flex-end;
+    cursor:copy; border-right:1px solid var(--ink); transition:background .2s}
+  .swatch:last-child{border-right:0}
+  .swatch b{font:700 11px/1 "Archivo"; letter-spacing:.2em; text-transform:uppercase; margin-bottom:8px}
+  .swatch code{font:500 12.5px/1.5 "Archivo"; opacity:.8}
+  .swatch:hover{background:var(--ink); color:var(--news)!important}
+
+  /* ---------- type ---------- */
+  .typegrid{display:grid; grid-template-columns:1.3fr 1fr; gap:0; border:1px solid var(--ink)}
+  .spec-main{padding:44px 40px; border-right:1px solid var(--ink)}
+  .spec-main .big{font:900 clamp(42px,5.6vw,74px)/1.0 "Playfair Display"; letter-spacing:-.012em}
+  .spec-main .big em{font-style:italic; font-weight:500}
+  .spec-main .note{margin-top:20px; font-size:14.5px; color:#4A463F}
+  .spec-side{display:flex; flex-direction:column}
+  .spec-cell{padding:22px 26px; border-bottom:1px solid var(--ink)}
+  .spec-cell:last-child{border-bottom:0}
+  .spec-cell .lbl{font:700 10px/1 "Archivo"; letter-spacing:.28em; text-transform:uppercase; color:var(--red); margin-bottom:10px}
+  .serif-b{font:500 22px/1.35 "Source Serif 4"}
+  .sans-l{font:600 17px/1.4 "Archivo"; letter-spacing:.06em}
+  .quote-cell{font:italic 500 21px/1.35 "Playfair Display"}
+  .quote-cell::before{content:"“"; color:var(--red); font-size:1.4em}
+
+  /* ---------- recipes ---------- */
+  .recipes{display:grid; grid-template-columns:1fr 1fr; gap:0; border:1px solid var(--ink)}
+  .recipe{padding:24px 26px; border-right:1px solid var(--ink); border-bottom:1px solid var(--ink)}
+  .recipe:nth-child(2n){border-right:0}
+  .recipe:nth-last-child(-n+2){border-bottom:0}
+  .recipe .rhead{display:flex; justify-content:space-between; align-items:center; margin-bottom:14px}
+  .recipe h3{font:700 12.5px/1 "Archivo"; letter-spacing:.2em; text-transform:uppercase}
+  .recipe pre{overflow:auto; font:400 12.4px/1.75 ui-monospace,"SFMono-Regular",Consolas,monospace; color:#33302B}
+  .copy{border:1px solid var(--ink); background:transparent; color:var(--ink); font:600 10px/1 "Archivo";
+    letter-spacing:.16em; text-transform:uppercase; padding:6px 10px; cursor:pointer}
+  .copy:hover{background:var(--ink); color:var(--news)}
+
+  /* ---------- pull quote ---------- */
+  .pull{border-top:1px solid var(--ink); border-bottom:1px solid var(--ink); padding:44px 0; margin:0;
+    text-align:center}
+  .pull p{font:italic 500 clamp(26px,3.4vw,40px)/1.28 "Playfair Display"; max-width:820px; margin:0 auto}
+  .pull .att{margin-top:18px; font:700 11px/1 "Archivo"; letter-spacing:.3em; text-transform:uppercase; color:var(--grey)}
+
+  /* ---------- mock front page ---------- */
+  .mock{border:1px solid var(--ink); background:#FCFAF4; padding:40px 36px 34px; box-shadow:8px 8px 0 rgba(22,20,18,.08)}
+  .mock .mmast{display:flex; justify-content:space-between; align-items:baseline; border-bottom:3px solid var(--ink); padding-bottom:14px; margin-bottom:26px}
+  .mock .mmast h3{font:900 clamp(30px,4.6vw,46px)/1 "Playfair Display"; letter-spacing:-.01em}
+  .mock .mmast span{font:600 10px/1 "Archivo"; letter-spacing:.26em; text-transform:uppercase; color:var(--grey)}
+  .mock .tagline{font:700 10px/1 "Archivo"; letter-spacing:.3em; text-transform:uppercase; color:var(--red); margin-bottom:12px}
+  .mock h4.head{font:700 clamp(24px,3vw,32px)/1.12 "Playfair Display"; margin-bottom:14px}
+  .mock .dek{font:italic 400 16px/1.5 "Source Serif 4"; color:#4A463F; margin-bottom:18px; text-align:left}
+  .mock figure.halftone{margin:0 0 18px}
+  .mock .imgbox{height:180px; background:
+      radial-gradient(circle at 30% 40%, var(--ink) 1.6px, transparent 2px) 0 0/6px 6px,
+      linear-gradient(160deg,#E8E3D6,#D9D3C2);
+      filter:contrast(.9)}
+  .mock figcaption{font:500 11.5px/1.5 "Archivo"; color:var(--grey); padding-top:8px; border-top:1px solid var(--rule)}
+  .mock .sideitems{display:flex; flex-direction:column; gap:0}
+  .mock .sideitems .si{padding:14px 0; border-bottom:1px solid var(--rule)}
+  .mock .sideitems .si:first-child{padding-top:0}
+  .mock .sideitems h5{font:700 15px/1.25 "Playfair Display"}
+  .mock .sideitems p{font-size:13.5px; color:#4A463F; margin-top:4px}
+  .mockgrid{display:grid; grid-template-columns:1.6fr 1fr; gap:36px}
+  .readmore{display:inline-block; margin-top:14px; font:600 11px/1 "Archivo"; letter-spacing:.22em;
+    text-transform:uppercase; color:var(--ink); text-decoration:underline; text-decoration-color:var(--red);
+    text-underline-offset:5px; text-decoration-thickness:2px}
+
+  /* ---------- do/dont ---------- */
+  .dd{display:grid; grid-template-columns:1fr 1fr; border:1px solid var(--ink)}
+  .do,.dont{padding:24px 28px}
+  .do{border-right:1px solid var(--ink)}
+  .do h3,.dont h3{font:700 12px/1 "Archivo"; letter-spacing:.24em; text-transform:uppercase; margin-bottom:14px}
+  .do h3{color:#2F5D3A} .dont h3{color:var(--red)}
+  .do ul,.dont ul{list-style:none}
+  .do li,.dont li{padding-left:24px; position:relative; margin-bottom:10px; font-size:15px; line-height:1.55}
+  .do li::before{content:"✓"; position:absolute; left:0; color:#2F5D3A; font-weight:700; font-family:"Archivo"}
+  .dont li::before{content:"✕"; position:absolute; left:0; color:var(--red); font-weight:700; font-family:"Archivo"}
+
+  .refs{font-size:15px; color:#4A463F}
+  .refs a{text-decoration:underline; text-decoration-color:var(--red); text-underline-offset:3px; font-weight:600; color:var(--ink)}
+  nav.pager{display:grid; grid-template-columns:1fr 1fr; border:1px solid var(--ink); margin-top:72px}
+  nav.pager a{text-decoration:none; padding:22px 26px; font:600 14px/1.3 "Archivo"; background:#FCFAF4}
+  nav.pager a small{display:block; font-weight:600; font-size:10px; letter-spacing:.26em; text-transform:uppercase; color:var(--grey); margin-bottom:8px}
+  nav.pager a.next{text-align:right; background:var(--ink); color:var(--news)}
+  nav.pager a.next small{color:#A9A499}
+  @media(max-width:900px){ .cols3,.cols2{columns:2} .recipes,.typegrid,.dd,.mockgrid{grid-template-columns:1fr}
+    .recipe,.spec-main,.do{border-right:0} .recipe{border-bottom:1px solid var(--ink)} .recipe:nth-last-child(-n+2){border-bottom:1px solid var(--ink)} .recipe:last-child{border-bottom:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="rule-double"></div>
+  <div class="dateline">
+    <span>The Tactile Board · Vol. I — No. 2</span>
+    <span>Panel 2 / 7 — Editorial Web</span>
+    <a href="index.html">← Back to the board</a>
+  </div>
+
+  <header class="mast">
+    <p class="kicker">Style Dossier</p>
+    <h1>Editorial &amp; Print‑<em>inspired</em> Web</h1>
+    <p class="deck">The web page as a magazine spread: serif authority, a real column grid, hairline rules doing the layout work, and one spot color of ink.</p>
+    <p class="byline">Set in Playfair Display · Source Serif 4 · Archivo — Filed under: typography-first</p>
+  </header>
+
+  <figure style="margin:0 0 56px; border:1px solid var(--ink); background:#FCFAF4; padding:14px 14px 10px; box-shadow:10px 10px 0 rgba(22,20,18,.06)">
+    <img src="assets/plate-02-editorial.jpg" alt="Magazine spread flat lay with grid, rules and red ink" style="display:block; width:100%; border:1px solid var(--ink)">
+    <figcaption style="margin-top:10px; font:italic 400 14.5px/1.5 'Source Serif 4'; color:var(--grey); text-align:center">Fig. 1 — the whole aesthetic, top-down: grid lines do the layout, the red ink does the talking.</figcaption>
+  </figure>
+
+  <section>
+    <div class="sechead"><span class="no">§1</span><h2>The idea, in three columns</h2></div>
+    <div class="cols3">
+      <p class="lede">Editorial web design borrows three centuries of print grammar and applies it to a browser. Headlines carry real typographic weight. The page is divided by rules, not cards. Density is a feature — a broadsheet earns long attention spans.</p>
+      <p>The move that sells it is the grid: fixed columns with hairline rules between them, text justified or left-aligned with intent, and small-caps kickers that act as wayfinding. Every element should look placed by an art director, not defaulted by a framework.</p>
+      <p>Use <em>one</em> ink color for type and <em>one</em> spot color — usually a red — for accents, underlines and section marks. More color and you’re back on the web; less and nobody notices the craft.</p>
+      <p>Best for: journalism and longform blogs, culture &amp; fashion studios, restaurant and wine brands, any site that wants to feel <em>published</em> rather than <em>posted</em>.</p>
+      <p>It also ages well: print grammar has no “2019 glass panel” problem. Serif + grid + rules will still feel deliberate in a decade.</p>
+      <p>Reference moods: Sunday broadsheets, old Knopf book jackets, <em>The Gentlewoman</em>, <em>Monocle</em> spreads, The New York Times Upshot.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="no">§2</span><h2>Palette — ink, newsprint, one spot red</h2></div>
+    <div class="palette">
+      <div class="swatch" style="background:var(--news); color:var(--ink)" data-copy="#F7F4EC"><b>Newsprint</b><code>#F7F4EC · page</code></div>
+      <div class="swatch" style="background:var(--ink); color:var(--news)" data-copy="#161412"><b>Press Ink</b><code>#161412 · text</code></div>
+      <div class="swatch" style="background:var(--red); color:#fff" data-copy="#C8321E"><b>Spot Red</b><code>#C8321E · accent</code></div>
+      <div class="swatch" style="background:#E9E4D8; color:var(--ink)" data-copy="#E9E4D8"><b>Fold Grey</b><code>#E9E4D8 · fills</code></div>
+      <div class="swatch" style="background:var(--grey); color:#fff" data-copy="#8A857A"><b>Copy Desk</b><code>#8A857A · meta</code></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="no">§3</span><h2>Type — a working masthead family</h2></div>
+    <div class="typegrid">
+      <div class="spec-main">
+        <p class="big">Serif says<br><em>authority.</em></p>
+        <p class="note"><b>Playfair Display 900</b> for headlines — high contrast, sharp terminals, survives at huge sizes. Keep tracking tight (−.01em to −.02em). <b>Source Serif 4</b> does body work without competing. <b>Archivo</b> in caps with wide tracking is your labelling system.</p>
+      </div>
+      <div class="spec-side">
+        <div class="spec-cell"><p class="lbl">Body · Source Serif 4</p><p class="serif-b">17/1.7 — justified with hyphens, never orphaned words.</p></div>
+        <div class="spec-cell"><p class="lbl">Labels · Archivo</p><p class="sans-l">KICKERS · SECTIONS · PAGE NUMBERS — 11px, +0.26em, uppercase.</p></div>
+        <div class="spec-cell"><p class="lbl">Pull quote</p><p class="quote-cell">Rules do the layout; type does the loud part.”</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="no">§4</span><h2>Recipes — CSS with a printing press in mind</h2></div>
+    <div class="recipes">
+      <div class="recipe">
+        <div class="rhead"><h3>Column grid + rules</h3><button class="copy">copy</button></div>
+<pre>.spread{
+  columns:3;
+  column-gap:36px;
+  column-rule:1px solid rgba(22,20,18,.22);
+}
+.spread p{
+  text-align:justify;
+  hyphens:auto;   /* kills rivers */
+}</pre>
+      </div>
+      <div class="recipe">
+        <div class="rhead"><h3>Drop cap, red ink</h3><button class="copy">copy</button></div>
+<pre>.lede::first-letter{
+  font:900 4.6em/.78 "Playfair Display";
+  float:left;
+  padding:.06em .1em 0 0;
+  color:#C8321E;
+}</pre>
+      </div>
+      <div class="recipe">
+        <div class="rhead"><h3>Brass rule (double)</h3><button class="copy">copy</button></div>
+<pre>.rule-double{
+  border-top:4px double #161412;
+  border-bottom:1px solid #161412;
+  padding:6px 0;
+}
+/* thin above, thick below —
+   or flip it, but be consistent
+   page-wide. Always. */</pre>
+      </div>
+      <div class="recipe">
+        <div class="rhead"><h3>Pull quote w/ hang</h3><button class="copy">copy</button></div>
+<pre>blockquote{
+  font:italic 500 clamp(26px,3.4vw,40px)
+       /1.28 "Playfair Display";
+  border-block:1px solid #161412;
+  padding:44px 0; text-align:center;
+}
+blockquote p::first-letter{
+  text-indent:-.35em; /* optical hang */
+}</pre>
+      </div>
+    </div>
+  </section>
+
+  <blockquote class="pull">
+    <p>“Cards, radii and drop shadows are crutches. A rule and a baseline grid can hold a whole page.”</p>
+    <p class="att">— the editorial opinion, stated as fact</p>
+  </blockquote>
+
+  <section style="margin-top:64px">
+    <div class="sechead"><span class="no">§5</span><h2>Live mock — a broadsheet front page</h2></div>
+    <div class="mock">
+      <div class="mmast">
+        <h3>The Interface Times</h3>
+        <span>Saturday Edition · § Design · p. A1</span>
+      </div>
+      <div class="mockgrid">
+        <article>
+          <p class="tagline">Type Wars</p>
+          <h4 class="head">Grids, Not Cards: Print Layout Invades The Browser</h4>
+          <p class="dek">Studios are shipping front pages. The tools are three centuries old: columns, rules, and an ink budget of exactly one color.</p>
+          <figure class="halftone">
+            <div class="imgbox"></div>
+            <figcaption>A press plate at 150 lpi — the photo “texture” is doing typesetting work here, not decoration.</figcaption>
+          </figure>
+          <div class="cols2" style="margin-top:14px">
+            <p>The layout trades depth for structure. There are no elevations, no glass, no shadows — instead the designer enforces hierarchy with scale, position and the humble horizontal rule.</p>
+            <p>Readers notice less than they think, and trust the page more than they can explain. It is, essentially, authority by inheritance.</p>
+          </div>
+          <a class="readmore" href="#continue">Continue reading →</a>
+        </article>
+        <aside class="sideitems">
+          <div class="si"><h5>Obituary: The Hamburger Menu</h5><p>Survived by three tabs and a search bar.</p></div>
+          <div class="si"><h5>Spot Red, Everywhere at Once</h5><p>A limited color is a limited budget. Spend it like one.</p></div>
+          <div class="si"><h5>Justified Text: Confession Booth</h5><p>“I hyphenate.” The public is ready.</p></div>
+          <div class="si"><h5>Weather: Overcast, 60% Serif</h5><p>Clearing by Friday. Longform advisory in effect all weekend.</p></div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="no">§6</span><h2>Steal this / Skip this</h2></div>
+    <div class="dd">
+      <div class="do"><h3>Steal this</h3><ul>
+        <li>A real grid: 12 columns, visible hairlines only where they organize content.</li>
+        <li>Optical alignment — pull quote marks and rules 2–3px outside the column.</li>
+        <li>Section numbers (¶, §, folios) as free “design detail” that reads as print DNA.</li>
+        <li>Italic decks under roman heads: instant hierarchy with one family.</li>
+      </ul></div>
+      <div class="dont"><h3>Skip this</h3><ul>
+        <li>Grey body text — press ink on newsprint, or it’s not print.</li>
+        <li>Justified columns without <code>hyphens:auto</code>: rivers everywhere.</li>
+        <li>Everything centered. Newspapers left-align with ragged-right columns.</li>
+        <li>Second and third accent colors. The spot is one color. That’s the joke.</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="no">§7</span><h2>Go looking</h2></div>
+    <p class="refs"><a href="https://www.fontsinuse.com" target="_blank">Fonts In Use</a> (filter “editorial”) · <a href="https://www.are.na/search?q=editorial%20layout" target="_blank">Are.na “editorial layout”</a> · study nytimes.com front pages, <em>The Gentlewoman</em>,pitchfork longform, Monocle · keywords: <em>brochure layout, broadsheet, rule grid, spot color</em>.</p>
+  </section>
+
+  <nav class="pager">
+    <a href="01-paper.html"><small>← Previous</small>01 — Paper UI / Papercraft</a>
+    <a class="next" href="03-riso.html"><small>Next →</small>03 — Riso / Risograph</a>
+  </nav>
+</div>
+
+<script>
+  document.querySelectorAll('.swatch,.copy').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      const txt = el.classList.contains('copy')
+        ? el.closest('.recipe').querySelector('pre').innerText
+        : el.dataset.copy;
+      (navigator.clipboard?.writeText(txt) ?? Promise.reject())
+        .catch(()=>{const t=document.createElement('textarea');t.value=txt;document.body.append(t);t.select();document.execCommand('copy');t.remove();});
+      if(el.classList.contains('copy')){const o=el.textContent; el.textContent='copied ✓'; setTimeout(()=>el.textContent=o,900);}
+      else{const b=el.querySelector('b').textContent; el.querySelector('b').textContent='Copied '+txt; setTimeout(()=>el.querySelector('b').textContent=b,900);}
+    });
+  });
+</script>
+</body>
+</html>

@@ -50,3 +50,30 @@ Save this. Follow @zarrar.n.ai for more design interventions.
 | 09 | `carousel-02/09-aurora.png` | AI products · startup heroes · creative tools |
 | 10 | `carousel-02/10-cheat-sheet.png` | Saveable recap + BEST FOR |
 | 11 | `carousel-02/11-cta.png` | CTA — **@zarrar.n.ai** |
+
+---
+
+# Board 01 — The Tactile Web (inspiration board, not a carousel)
+
+Seven paper/print/stone aesthetics, each built as a **live HTML panel styled in its own language** (no Insta crop — browse it or screenshot it into your FigJam).
+
+Open `board-01-tactile/index.html` (or serve the folder with `python3 -m http.server`). The index is a pinned-card gallery wall with live scaled previews of every panel; each panel contains:
+
+1. Reference plate (texture mood image, `assets/`)
+2. Palette — click a swatch to copy the hex
+3. Type pairing + specimen
+4. 3–4 copy-paste CSS recipes (grain, halftone, overprint, deckle edges, border-first elevation, engraved type…)
+5. A working live mock (card stack, broadsheet front page, riso gig poster + ticket, invitation, 2 a.m. dashboard, studio index)
+6. Steal / skip checklist + where to go looking
+
+| # | File | Aesthetic |
+|---|------|-----------|
+| 01 | `01-paper.html` | Paper UI / Papercraft — stacked sheets, soft drop shadows |
+| 02 | `02-editorial.html` | Editorial / Print-inspired — serif mastheads, columns, rules |
+| 03 | `03-riso.html` | Riso — fluoro spot inks, overprint, misregistration |
+| 04 | `04-newsprint.html` | Newsprint UI — cream stock, halftone dots, classifieds |
+| 05 | `05-parchment.html` | Parchment / Vellum — deckled edges, wax seals, EB Garamond |
+| 06 | `06-slate.html` | Slate / Charcoal minimal — border-first elevation, muted accents |
+| 07 | `07-concrete.html` | Concrete / Stone — cast slabs, engraved type, safety orange |
+
+All self-contained: one HTML file per panel, Google Fonts + inline SVG noise only. PNGs of panels need a headless browser run elsewhere (this sandbox blocks Chromium downloads); the live HTML is the deliverable.

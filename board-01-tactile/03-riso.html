@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>03 · Riso / Risograph — Tactile Inspiration Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F4F1E8; --pink:#FF48B0; --blue:#0F6FC6; --yellow:#FFE44D; --green:#00A99D; --ink:#1D1C19;
+    --grid:rgba(29,28,25,.14);
+  }
+  *{box-sizing:border-box; margin:0; padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper); color:var(--ink); font:400 16.5px/1.6 "Archivo", system-ui, sans-serif;
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size:72px 72px; background-position:-1px -1px}
+  /* global ink grain */
+  body::after{content:""; position:fixed; inset:0; pointer-events:none; z-index:99; mix-blend-mode:multiply; opacity:.16;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='140' height='140' filter='url(%23n)'/></svg>")}
+  .wrap{max-width:1120px; margin:0 auto; padding:64px 32px 96px}
+  a{color:inherit}
+
+  /* ---------- masthead: overprint poster ---------- */
+  .masthead{position:relative; padding:64px 44px 56px; background:var(--paper);
+    border:2px solid var(--ink); margin-bottom:56px; box-shadow:12px 12px 0 var(--pink)}
+  .masthead .bleed{position:absolute; inset:auto auto 18px 18px; width:150px; height:150px;
+    border:2px solid var(--ink); border-radius:50%; background:var(--yellow);
+    mix-blend-mode:multiply; opacity:.9}
+  .masthead .bar{position:absolute; top:-2px; right:-2px; width:180px; height:44px; background:var(--blue);
+    mix-blend-mode:multiply; color:var(--yellow); display:flex; align-items:center; justify-content:center;
+    font:700 11px/1 "Archivo"; letter-spacing:.3em; text-transform:uppercase}
+  .kicker{font:700 12px/1 "Archivo"; letter-spacing:.32em; text-transform:uppercase; color:var(--blue); margin-bottom:20px}
+  h1{font:900 clamp(44px,8vw,96px)/.92 "Archivo Black"; text-transform:uppercase; letter-spacing:-.01em;
+    color:var(--pink); text-shadow:6px 4px 0 rgba(15,111,198,.85)}
+  h1 .shadowed{color:var(--ink); text-shadow:5px 4px 0 rgba(255,72,176,.8)}
+  .sub{margin-top:22px; max-width:600px; font-size:16.5px; color:#37352F}
+  .chips{display:flex; flex-wrap:wrap; gap:10px; margin-top:22px}
+  .chip{font:700 10.5px/1 "Archivo"; letter-spacing:.18em; text-transform:uppercase; padding:9px 12px;
+    background:var(--paper); border:2px solid var(--ink)}
+  .chip.pink{background:var(--pink)} .chip.blue{background:var(--blue); color:var(--yellow)}
+
+  /* ---------- sections ---------- */
+  section{margin-bottom:72px}
+  h2{font:900 clamp(22px,3.2vw,34px)/1 "Archivo Black"; text-transform:uppercase; margin-bottom:24px;
+    display:flex; align-items:center; gap:16px}
+  h2 .no{display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px;
+    background:var(--ink); color:var(--paper); font:700 15px/1 "Space Mono"; transform:rotate(-4deg); flex:none}
+  h2 .u{box-shadow:inset 0 -0.32em 0 var(--yellow)}
+
+  .card{border:2px solid var(--ink); background:var(--paper); padding:28px; box-shadow:8px 8px 0 rgba(29,28,25,.9)}
+
+  /* ---------- palette with overprint demo ---------- */
+  .palette{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:22px}
+  .swatch{border:2px solid var(--ink); min-height:132px; padding:14px; display:flex; flex-direction:column;
+    justify-content:flex-end; cursor:copy; mix-blend-mode:multiply;
+    transition:transform .18s ease}
+  .swatch:hover{transform:translate(-3px,-3px)}
+  .swatch b{font:700 10.5px/1 "Archivo"; letter-spacing:.2em; text-transform:uppercase; margin-bottom:6px}
+  .swatch code{font:700 13px/1.4 "Space Mono"}
+  .overprint{margin-top:26px; display:flex; align-items:center; gap:24px; padding:24px; border:2px dashed var(--ink)}
+  .overprint .disc{width:110px; height:110px; border-radius:50%; background:var(--pink); mix-blend-mode:multiply; position:relative}
+  .overprint .disc::after{content:""; position:absolute; inset:22px -34px -18px 34px; border-radius:50%; background:var(--blue); mix-blend-mode:multiply}
+  .overprint p{font:500 14px/1.5 "Space Mono"}
+
+  /* ---------- type ---------- */
+  .typegrid{display:grid; grid-template-columns:1.25fr 1fr; gap:22px}
+  .spec-big{border:2px solid var(--ink); padding:38px 34px; background:var(--blue); color:var(--paper);
+    box-shadow:8px 8px 0 var(--pink)}
+  .spec-big .big{font:900 clamp(40px,5.4vw,64px)/.95 "Archivo Black"; text-transform:uppercase; letter-spacing:-.005em}
+  .spec-big .big .ghost{color:transparent; -webkit-text-stroke:2px var(--yellow)}
+  .spec-big .note{margin-top:18px; font:400 13px/1.55 "Space Mono"}
+  .spec-side{display:flex; flex-direction:column; gap:22px}
+  .spec-minicard{border:2px solid var(--ink); padding:22px 24px; background:var(--paper); box-shadow:6px 6px 0 rgba(29,28,25,.85)}
+  .spec-minicard .lbl{font:700 10px/1 "Archivo"; letter-spacing:.26em; text-transform:uppercase; color:var(--blue); margin-bottom:10px}
+  .mono-s{font:400 15px/1.6 "Space Mono"}
+  .med-s{font:600 19px/1.35 "Archivo"}
+
+  /* ---------- recipes ---------- */
+  .recipes{display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:22px}
+  .recipe{border:2px solid var(--ink); background:#FFFDF6; overflow:hidden; box-shadow:8px 8px 0 var(--yellow)}
+  .recipe .rhead{display:flex; justify-content:space-between; align-items:center; padding:16px 20px 10px}
+  .recipe h3{font:700 13px/1 "Archivo"; letter-spacing:.14em; text-transform:uppercase}
+  .recipe pre{margin:0; padding:0 20px 18px; overflow:auto; font:400 12.4px/1.7 "Space Mono", monospace}
+  .copy{border:2px solid var(--ink); background:var(--paper); color:var(--ink); font:700 10px/1 "Archivo";
+    letter-spacing:.14em; text-transform:uppercase; padding:7px 10px; cursor:pointer}
+  .copy:hover{background:var(--pink)}
+
+  /* ---------- mock poster + ticket ---------- */
+  .mock{display:grid; grid-template-columns:1.35fr 1fr; gap:22px; align-items:stretch}
+  .poster{position:relative; border:2px solid var(--ink); background:var(--paper); padding:44px 40px; overflow:hidden;
+    box-shadow:12px 12px 0 var(--blue)}
+  .poster .halftone{position:absolute; right:-70px; top:-70px; width:340px; height:340px; border-radius:50%;
+    background:radial-gradient(var(--pink) 1.2px, transparent 1.6px) 0 0/5px 5px; opacity:.85; transform:rotate(8deg)}
+  .poster .halftone.b2{left:-90px; right:auto; top:auto; bottom:-120px; width:300px; height:300px;
+    background:radial-gradient(var(--blue) 1.2px, transparent 1.6px) 0 0/5px 5px; opacity:.7}
+  .poster h3{position:relative; font:900 clamp(38px,5vw,64px)/.94 "Archivo Black"; text-transform:uppercase}
+  .poster h3 .mis{position:relative; color:var(--ink)}
+  .poster h3 .mis::before{content:attr(data-text); position:absolute; inset:0; color:var(--pink); transform:translate(4px,-3px); mix-blend-mode:multiply; z-index:-1}
+  .poster .meta{position:relative; margin-top:22px; font:700 13px/1.7 "Space Mono"; color:var(--blue)}
+  .poster .cta{position:relative; display:inline-block; margin-top:26px; background:var(--pink); color:#fff; border:2px solid var(--ink);
+    font:700 14px/1 "Archivo"; letter-spacing:.16em; text-transform:uppercase; padding:16px 22px;
+    box-shadow:5px 5px 0 var(--ink); cursor:pointer; text-decoration:none}
+  .poster .cta:active{transform:translate(3px,3px); box-shadow:2px 2px 0 var(--ink)}
+  .ticket{border:2px solid var(--ink); background:var(--paper); padding:24px 22px; display:flex; flex-direction:column; gap:16px;
+    box-shadow:12px 12px 0 var(--yellow)}
+  .ticket h4{font:900 20px/1 "Archivo Black"; text-transform:uppercase; color:var(--blue)}
+  .ticket .row{display:flex; justify-content:space-between; font:400 12.5px/1.8 "Space Mono"; border-bottom:2px dashed var(--ink); padding-bottom:8px}
+  .ticket .barcode{height:52px; margin-top:auto; background:repeating-linear-gradient(90deg, var(--ink) 0 3px, transparent 3px 6px, var(--ink) 6px 7px, transparent 7px 12px)}
+  .stamp{align-self:flex-start; transform:rotate(-7deg); border:2px solid var(--pink); color:var(--pink);
+    font:700 11px/1 "Archivo"; letter-spacing:.24em; text-transform:uppercase; padding:8px 10px; opacity:.9}
+
+  /* ---------- do/don't ---------- */
+  .dd{display:grid; grid-template-columns:1fr 1fr; gap:22px}
+  .do,.dont{border:2px solid var(--ink); padding:24px 26px; background:var(--paper)}
+  .do{box-shadow:8px 8px 0 var(--green)} .dont{box-shadow:8px 8px 0 var(--pink)}
+  .do h3,.dont h3{font:700 12px/1 "Archivo"; letter-spacing:.24em; text-transform:uppercase; margin-bottom:14px}
+  .do h3{color:var(--green)} .dont h3{color:var(--pink); text-shadow:2px 1px 0 rgba(29,28,25,.25)}
+  .do ul,.dont ul{list-style:none}
+  .do li,.dont li{padding-left:26px; position:relative; margin-bottom:10px; font-size:14.5px}
+  .do li::before{content:"▣"; position:absolute; left:0; color:var(--green)}
+  .dont li::before{content:"▢"; position:absolute; left:0; color:var(--pink)}
+
+  .refs{font:400 14px/1.8 "Space Mono"}
+  .refs a{background:var(--yellow); padding:1px 5px; text-decoration:none; border:1px solid var(--ink)}
+  .refs a:hover{background:var(--pink); color:#fff}
+  nav.pager{display:grid; grid-template-columns:1fr 1fr; gap:22px; margin-top:72px}
+  nav.pager a{text-decoration:none; border:2px solid var(--ink); background:var(--paper); padding:20px 24px;
+    font:700 14px/1.3 "Archivo"; text-transform:uppercase; letter-spacing:.06em}
+  nav.pager a small{display:block; font:400 10px/1 "Space Mono"; letter-spacing:.22em; text-transform:uppercase; color:var(--blue); margin-bottom:8px}
+  nav.pager a.next{background:var(--ink); color:var(--paper)}
+  nav.pager a.next small{color:var(--yellow)}
+  @media(max-width:880px){ .typegrid,.mock,.dd{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topline" style="display:flex; justify-content:space-between; font:700 10px/1 'Archivo'; letter-spacing:.3em; text-transform:uppercase; margin-bottom:34px">
+    <span style="background:var(--ink); color:var(--paper); padding:8px 12px">Tactile Board — Panel 03/07</span>
+    <a href="index.html" style="border:2px solid var(--ink); padding:8px 12px; text-decoration:none">← Back to board</a>
+  </div>
+
+  <header class="masthead">
+    <span class="bar">2-color · overprint</span>
+    <span class="bleed"></span>
+    <p class="kicker">Riso / Risograph Style</p>
+    <h1>Grain, <span class="shadowed">ghosting</span><br>&amp; glorious misprint.</h1>
+    <p class="sub">The web version of a duplicator print: fluorescent spot colors that blend like wet ink (multiply), halftone dots instead of gradients, and color layers that never quite register. Imperfection is the brand.</p>
+    <div class="chips">
+      <span class="chip pink">Best for:</span>
+      <span class="chip">indie studios</span><span class="chip">zines &amp; music</span>
+      <span class="chip">event sites</span><span class="chip">brand merch drops</span><span class="chip">culture pages</span>
+    </div>
+  </header>
+
+  <figure class="plate" style="margin:0 0 64px; border:2px solid var(--ink); position:relative">
+    <img src="assets/plate-03-riso.jpg" alt="Risograph print with pink and blue misregistered halftone layers" style="display:block; width:100%; mix-blend-mode:multiply">
+    <figcaption style="position:absolute; left:14px; bottom:14px; background:var(--yellow); border:2px solid var(--ink); padding:8px 12px; font:700 10.5px/1 'Archivo'; letter-spacing:.2em; text-transform:uppercase">Ref plate — misregistered layers, halftone grain, cream stock</figcaption>
+  </figure>
+
+  <section>
+    <h2><span class="no">01</span><span class="u">Palette</span> — spot inks, no CMYK</h2>
+    <div class="palette">
+      <div class="swatch" style="background:var(--paper); color:var(--ink)" data-copy="#F4F1E8"><b>Recycled stock</b><code>#F4F1E8</code></div>
+      <div class="swatch" style="background:var(--pink); color:#fff" data-copy="#FF48B0"><b>Fluoro pink</b><code>#FF48B0</code></div>
+      <div class="swatch" style="background:var(--blue); color:#fff" data-copy="#0F6FC6"><b>Riso blue</b><code>#0F6FC6</code></div>
+      <div class="swatch" style="background:var(--yellow); color:var(--ink)" data-copy="#FFE44D"><b>Fluoro yellow</b><code>#FFE44D</code></div>
+      <div class="swatch" style="background:var(--green); color:#fff" data-copy="#00A99D"><b>Teal / violet</b><code>#00A99D</code></div>
+      <div class="swatch" style="background:var(--ink); color:var(--paper)" data-copy="#1D1C19"><b>Black ink</b><code>#1D1C19</code></div>
+    </div>
+    <div class="overprint">
+      <div class="disc"></div>
+      <p><b>THE OVERPRINT RULE:</b> every colored layer gets <code>mix-blend-mode:multiply</code>. Pink × blue = purple, blue × yellow = green. That second-pass color is the entire aesthetic — no extra ink, only overlaps.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="no">02</span><span class="u">Type</span> — poster grotesque + mono</h2>
+    <div class="typegrid">
+      <div class="spec-big">
+        <p class="big">Set it<br><span class="ghost">loud.</span></p>
+        <p class="note">Archivo Black, ALL CAPS, tight leading (0.9–1.0). Riso posters shout with mass, not size alone — outline (“ghost”) treatments cost no ink and look like a missed pass.</p>
+      </div>
+      <div class="spec-side">
+        <div class="spec-minicard"><p class="lbl">Body · Archivo</p><p class="med-s">Mid-weight, no frills — the type is already loud enough.</p></div>
+        <div class="spec-minicard"><p class="lbl">Specs · Space Mono</p><p class="mono-s">DATES / EDITIONS / PRINT NOTES → mono, 13px, leading 1.7.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="no">03</span><span class="u">Recipes</span> — fake the press in CSS</h2>
+    <div class="recipes">
+      <div class="recipe">
+        <div class="rhead"><h3>Misregistered layer</h3><button class="copy">copy</button></div>
+<pre>.mis{position:relative; color:#1D1C19}
+.mis::before{
+  content:attr(data-text);
+  position:absolute; inset:0;
+  color:#FF48B0;
+  transform:translate(4px,-3px);
+  mix-blend-mode:multiply;
+  z-index:-1;
+}</pre>
+      </div>
+      <div class="recipe">
+        <div class="rhead"><h3>Halftone field</h3><button class="copy">copy</button></div>
+<pre>.halftone{
+  background:
+    radial-gradient(#FF48B0 1.2px,
+      transparent 1.6px) 0 0/5px 5px;
+  opacity:.85; transform:rotate(8deg);
+}
+/* rotate the dot grid slightly —
+   rosettes appear, like on press */</pre>
+      </div>
+      <div class="recipe">
+        <div class="rhead"><h3>Duotone photos</h3><button class="copy">copy</button></div>
+<pre>img.riso{
+  filter:grayscale(1) contrast(1.15)
+         brightness(1.05);
+  mix-blend-mode:multiply;
+}
+.riso-wrap{position:relative; isolation:isolate}
+.riso-wrap::after{ /* tint pass */
+  content:""; position:absolute; inset:0;
+  background:#0F6FC6; mix-blend-mode:multiply;
+  opacity:.65;
+}</pre>
+      </div>
+      <div class="recipe">
+        <div class="rhead"><h3>Press grain overlay</h3><button class="copy">copy</button></div>
+<pre>body::after{
+  content:""; position:fixed; inset:0;
+  pointer-events:none;
+  mix-blend-mode:multiply; opacity:.16;
+  background:url("noise.svg"); /* SVG
+    feTurbulence, fractalNoise, bf .9 */
+}</pre>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="no">04</span><span class="u">Live mock</span> — gig poster + entry pass</h2>
+    <div class="mock">
+      <div class="poster">
+        <div class="halftone"></div>
+        <div class="halftone b2"></div>
+        <h3><span class="mis" data-text="PRINT">PRINT</span> IS NOT<br><span class="mis" data-text="DEAD">DEAD</span>—<br>IT JUST<br>SMELLS WEIRD</h3>
+        <p class="meta">SAT 14 JUN · 7:30 PM<br>BASEMENT OF THE PRESS CO.<br>2 COLORS / 0 VIBES CHECKED</p>
+        <a class="cta" href="#mock">Get a pass →</a>
+      </div>
+      <div class="ticket">
+        <h4>Admit one</h4>
+        <div class="row"><span>PASS NO.</span><b>0142 / 300</b></div>
+        <div class="row"><span>EDITION</span><b>RISO / FLUORO</b></div>
+        <div class="row"><span>GATE</span><b>DOOR 2 · 19:30</b></div>
+        <div class="row"><span>PERKS</span><b>ZINE + STICKER</b></div>
+        <span class="stamp">No re-entry</span>
+        <div class="barcode" aria-hidden="true"></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="no">05</span><span class="u">Steal / skip</span></h2>
+    <div class="dd">
+      <div class="do"><h3>Steal this</h3><ul>
+        <li>Two inks and a paper tone. Three max. The limit is the look.</li>
+        <li>Offset every decorative layer by 2–6px; align your text layers to nothing.</li>
+        <li>Halftone instead of gradients for skies, fades and image tone.</li>
+        <li>Let grain live on <code>::after</code> overlays, never inside the text layer.</li>
+      </ul></div>
+      <div class="dont"><h3>Skip this</h3><ul>
+        <li>Full-color photography — that’s a magazine, not a riso.</li>
+        <li>Body copy in multiply pink at 12px. Accessibility still exists in 1994.</li>
+        <li>Perfect registration everywhere: one element must be aligned to prove the rest are not.</li>
+        <li>Neon without grain → you’ve accidentally built a Y2K page.</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="no">06</span><span class="u">Go looking</span></h2>
+    <p class="refs">Are.na tags: <a href="https://www.are.na/search?q=riso" target="_blank">“riso”</a>, <a href="https://www.are.na/search?q=risograph" target="_blank">“risograph”</a> · Instagram-era staples: Spacejunk, Risomono, Kiosk · keywords: <em>overprint, misregistration, spot ink, fluoro pink, halftone rosette, A5 zine cover</em>.</p>
+  </section>
+
+  <nav class="pager">
+    <a href="02-editorial.html"><small>← Previous</small>02 — Editorial / Print</a>
+    <a class="next" href="04-newsprint.html"><small>Next →</small>04 — Newsprint UI</a>
+  </nav>
+</div>
+
+<script>
+  document.querySelectorAll('.swatch,.copy').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      const txt = el.classList.contains('copy')
+        ? el.closest('.recipe').querySelector('pre').innerText
+        : el.dataset.copy;
+      (navigator.clipboard?.writeText(txt) ?? Promise.reject())
+        .catch(()=>{const t=document.createElement('textarea');t.value=txt;document.body.append(t);t.select();document.execCommand('copy');t.remove();});
+      if(el.classList.contains('copy')){const o=el.textContent; el.textContent='copied!'; setTimeout(()=>el.textContent=o,900);}
+      else{const b=el.querySelector('b').textContent; el.querySelector('b').textContent='copied '+txt; setTimeout(()=>el.querySelector('b').textContent=b,900);}
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>06 · Slate / Charcoal Minimalism — Tactile Inspiration Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --s900:#1E252C; --s850:#232B33; --s800:#2A343E; --s700:#33404C; --s600:#3E4D5B;
+    --txt:#DDE6EE; --txt-2:#93A3B3; --txt-3:#5F7080;
+    --sage:#8FB3A4; --steel:#8FB4D9; --clay:#C99A78; --line:rgba(255,255,255,.07);
+  }
+  *{box-sizing:border-box; margin:0; padding:0}
+  body{
+    background:var(--s850); color:var(--txt);
+    font:400 16px/1.6 "Inter Tight", system-ui, sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  /* quiet depth: two soft washes of color, no pure black anywhere */
+  body::before{content:""; position:fixed; inset:0; pointer-events:none;
+    background:
+      radial-gradient(900px 480px at 15% -10%, rgba(143,180,217,.07), transparent 60%),
+      radial-gradient(800px 520px at 100% 100%, rgba(143,179,164,.06), transparent 60%);}
+  .wrap{max-width:1120px; margin:0 auto; padding:72px 32px 96px; position:relative}
+  a{color:inherit; text-decoration:none}
+
+  .topline{display:flex; justify-content:space-between; font:500 11px/1 "JetBrains Mono"; letter-spacing:.14em;
+    color:var(--txt-3); text-transform:uppercase; margin-bottom:40px}
+  .topline a:hover{color:var(--steel)}
+
+  /* ---------- masthead ---------- */
+  .masthead{border:1px solid var(--line); background:linear-gradient(180deg,var(--s800),var(--s850));
+    border-radius:16px; padding:56px 52px; margin-bottom:64px; position:relative; overflow:hidden;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 30px 60px -40px rgba(0,0,0,.8)}
+  .masthead::after{content:""; position:absolute; width:420px; height:420px; right:-160px; top:-180px;
+    background:radial-gradient(circle, rgba(143,180,217,.14), transparent 65%)}
+  .kicker{display:inline-flex; align-items:center; gap:10px; font:500 11px/1 "JetBrains Mono"; letter-spacing:.2em;
+    text-transform:uppercase; color:var(--steel); margin-bottom:22px}
+  .kicker::before{content:""; width:8px; height:8px; border-radius:2px; background:var(--steel); opacity:.8}
+  h1{font:800 clamp(38px,5.6vw,64px)/1.05 "Inter Tight"; letter-spacing:-.025em; max-width:15ch}
+  h1 .dim{color:var(--txt-3)}
+  .sub{margin-top:20px; color:var(--txt-2); max-width:56ch; font-size:16.5px}
+  .chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:26px}
+  .chip{font:500 12px/1 "Inter Tight"; padding:8px 13px; border-radius:99px;
+    border:1px solid var(--line); background:rgba(255,255,255,.03); color:var(--txt-2)}
+  .chip b{color:var(--sage); font-weight:600}
+
+  section{margin-bottom:72px}
+  .sechead{display:flex; align-items:baseline; gap:14px; margin-bottom:22px}
+  .sechead .no{font:700 11px/1 "JetBrains Mono"; color:var(--txt-3)}
+  .sechead h2{font:700 20px/1.2 "Inter Tight"; letter-spacing:-.015em}
+  .sechead .ln{flex:1; height:1px; background:var(--line)}
+
+  .card{background:var(--s800); border:1px solid var(--line); border-radius:14px; padding:28px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.04), 0 20px 40px -30px rgba(0,0,0,.9)}
+
+  /* ---------- palette ---------- */
+  .palette{display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:14px}
+  .swatch{border:1px solid var(--line); border-radius:12px; padding:14px 16px; min-height:112px; cursor:copy;
+    display:flex; flex-direction:column; justify-content:flex-end; gap:3px;
+    transition:border-color .2s, transform .2s}
+  .swatch:hover{border-color:rgba(255,255,255,.18); transform:translateY(-3px)}
+  .swatch b{font:600 13px/1 "Inter Tight"} .swatch code{font:400 11.5px/1.4 "JetBrains Mono"}
+
+  /* ---------- type ---------- */
+  .typegrid{display:grid; grid-template-columns:1.2fr 1fr; gap:14px}
+  .spec-main .big{font:800 clamp(34px,4.6vw,52px)/1.08 "Inter Tight"; letter-spacing:-.03em}
+  .spec-main .big .dim{color:var(--txt-3)}
+  .spec-main .note{margin-top:16px; color:var(--txt-2); font-size:14.5px; max-width:46ch}
+  .spec-side{display:flex; flex-direction:column; gap:14px}
+  .spec-cell{flex:1; padding:20px 24px}
+  .spec-cell .lbl{font:500 10px/1 "JetBrains Mono"; letter-spacing:.24em; text-transform:uppercase; color:var(--steel); margin-bottom:10px}
+  .ui-s{font:500 17px/1.5 "Inter Tight"}
+  .mono-s{font:400 13px/1.7 "JetBrains Mono"; color:var(--txt-2)}
+
+  /* ---------- recipes ---------- */
+  .recipes{display:grid; grid-template-columns:repeat(auto-fit,minmax(330px,1fr)); gap:14px}
+  .recipe{overflow:hidden; display:flex; flex-direction:column}
+  .recipe .rhead{display:flex; justify-content:space-between; align-items:center; padding:18px 22px 10px}
+  .recipe h3{font:600 13.5px/1 "Inter Tight"; letter-spacing:.01em}
+  .recipe pre{margin:0; padding:0 22px 20px; overflow:auto; font:400 12.2px/1.75 "JetBrains Mono", monospace; color:#B9C6D2}
+  .recipe pre .c{color:var(--txt-3)} .recipe pre .k{color:var(--steel)} .recipe pre .v{color:var(--sage)}
+  .copy{border:1px solid var(--line); background:rgba(255,255,255,.03); color:var(--txt-2);
+    font:500 11px/1 "Inter Tight"; padding:7px 12px; border-radius:8px; cursor:pointer}
+  .copy:hover{color:var(--txt); border-color:rgba(255,255,255,.2)}
+
+  /* ---------- mock dashboard ---------- */
+  .mock{border:1px solid var(--line); border-radius:16px; overflow:hidden; background:var(--s900);
+    box-shadow:0 40px 80px -50px rgba(0,0,0,1)}
+  .mock .chrome{display:flex; align-items:center; gap:8px; padding:14px 18px; border-bottom:1px solid var(--line); background:var(--s850)}
+  .mock .chrome .dot{width:10px; height:10px; border-radius:50%; background:var(--s600)}
+  .mock .chrome .dot:first-child{background:#7E5B56} .mock .chrome .dot:nth-child(2){background:#7C6F50} .mock .chrome .dot:nth-child(3){background:#57736A}
+  .mock .chrome .url{margin-left:14px; font:400 11.5px/1 "JetBrains Mono"; color:var(--txt-3)}
+  .mock .body{display:grid; grid-template-columns:1fr 300px; gap:14px; padding:18px}
+  .mock .panel{background:var(--s800); border:1px solid var(--line); border-radius:12px; padding:20px 22px}
+  .statrow{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:14px}
+  .stat .lbl{font:500 10px/1 "JetBrains Mono"; letter-spacing:.22em; text-transform:uppercase; color:var(--txt-3); margin-bottom:10px}
+  .stat .val{font:800 26px/1 "Inter Tight"; letter-spacing:-.02em}
+  .stat .val small{font:500 13px/1 "Inter Tight"; color:var(--sage); margin-left:6px}
+  .bars{display:flex; align-items:flex-end; gap:7px; height:120px; padding:6px 2px 0}
+  .bars i{flex:1; border-radius:4px 4px 2px 2px; background:linear-gradient(180deg,var(--s600),var(--s700)); min-height:18px}
+  .bars i.hot{background:linear-gradient(180deg,var(--steel),#5E82A3)}
+  .ev{display:flex; justify-content:space-between; align-items:center; padding:11px 0; border-bottom:1px solid var(--line); font-size:13.5px}
+  .ev:last-child{border-bottom:0}
+  .pill{font:500 10.5px/1 "JetBrains Mono"; padding:5px 9px; border-radius:99px}
+  .pill.ok{background:rgba(143,179,164,.12); color:var(--sage); border:1px solid rgba(143,179,164,.25)}
+  .pill.wait{background:rgba(201,154,120,.1); color:var(--clay); border:1px solid rgba(201,154,120,.22)}
+  .toggle{display:flex; align-items:center; gap:12px; padding:12px 0; border-bottom:1px solid var(--line); font-size:13.5px; justify-content:space-between}
+  .toggle .sw{width:38px; height:22px; border-radius:99px; background:var(--s600); position:relative; cursor:pointer; border:1px solid var(--line)}
+  .toggle .sw::after{content:""; position:absolute; top:2px; left:2px; width:16px; height:16px; border-radius:50%; background:var(--txt-2); transition:.18s}
+  .toggle .sw.on{background:rgba(143,180,217,.25); border-color:rgba(143,180,217,.4)}
+  .toggle .sw.on::after{left:18px; background:var(--steel)}
+  .btnrow{display:flex; gap:10px; margin-top:16px}
+  .btn{font:600 13px/1 "Inter Tight"; padding:11px 16px; border-radius:9px; cursor:pointer; border:1px solid var(--line)}
+  .btn.p{background:rgba(143,180,217,.16); color:var(--steel); border-color:rgba(143,180,217,.35);
+    box-shadow:0 0 0 0 rgba(143,180,217,.35), 0 10px 22px -12px rgba(143,180,217,.4)}
+  .btn.p:hover{box-shadow:0 0 0 3px rgba(143,180,217,.12), 0 12px 24px -12px rgba(143,180,217,.5)}
+  .btn.g{background:transparent; color:var(--txt-2)}
+  .btn.g:hover{color:var(--txt); border-color:rgba(255,255,255,.18)}
+
+  /* ---------- do/don't ---------- */
+  .dd{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+  .do h3,.dont h3{font:600 13px/1 "Inter Tight"; letter-spacing:.02em; margin-bottom:14px}
+  .do h3{color:var(--sage)} .dont h3{color:var(--clay)}
+  .do ul,.dont ul{list-style:none}
+  .do li,.dont li{padding-left:22px; position:relative; margin-bottom:10px; font-size:14.5px; color:var(--txt-2)}
+  .do li b,.dont li b{color:var(--txt); font-weight:600}
+  .do li::before{content:"●"; font-size:8px; position:absolute; left:2px; top:7px; color:var(--sage)}
+  .dont li::before{content:"○"; font-size:8px; position:absolute; left:2px; top:7px; color:var(--clay)}
+
+  .refs{color:var(--txt-2); font-size:14.5px}
+  .refs a{color:var(--steel); border-bottom:1px solid rgba(143,180,217,.35)}
+  nav.pager{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:72px}
+  nav.pager a{padding:20px 24px; font:600 14px/1.3 "Inter Tight"}
+  nav.pager a small{display:block; font:500 10px/1 "JetBrains Mono"; letter-spacing:.22em; text-transform:uppercase; color:var(--txt-3); margin-bottom:9px}
+  nav.pager a.next{text-align:right; background:var(--s800); border:1px solid var(--line)}
+  @media(max-width:880px){ .typegrid,.dd{grid-template-columns:1fr} .mock .body{grid-template-columns:1fr} .statrow{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topline">
+    <span>TACTILE BOARD · PANEL 06/07</span>
+    <a href="index.html">← BACK TO BOARD</a>
+  </div>
+
+  <header class="masthead">
+    <p class="kicker">Slate / Charcoal Minimalism</p>
+    <h1>Dark mode, <span class="dim">but the lights are dimmed, not off.</span></h1>
+    <p class="sub">Blue-grey slate instead of pure black, muted accents instead of neon, borders instead of shadows. The aesthetic that survives a 2 a.m. session — and still reads calm in a screenshot.</p>
+    <div class="chips">
+      <span class="chip"><b>Best for</b> dev tools</span><span class="chip">dashboards</span>
+      <span class="chip">reading apps</span><span class="chip">fintech / pro SaaS</span><span class="chip">quiet luxury brands</span>
+    </div>
+  </header>
+
+  <figure style="margin:0 0 64px; border-radius:16px; overflow:hidden; border:1px solid var(--line)">
+    <img src="assets/plate-06-slate.jpg" alt="Matte slate blue-grey stone surface" style="display:block; width:100%; opacity:.9">
+    <figcaption style="padding:10px 16px; font:400 10.5px/1 'JetBrains Mono'; letter-spacing:.2em; text-transform:uppercase; color:var(--txt-3); background:var(--s800); border-top:1px solid var(--line)">Ref plate — matte slate, raking light, zero gloss</figcaption>
+  </figure>
+
+  <section>
+    <div class="sechead"><span class="no">01</span><h2>Palette — the 85% black rule</h2><span class="ln"></span></div>
+    <div class="palette">
+      <div class="swatch" style="background:var(--s900); color:var(--txt)" data-copy="#1E252C"><b>Slate 900</b><code>#1E252C · deepest bg</code></div>
+      <div class="swatch" style="background:var(--s850); color:var(--txt)" data-copy="#232B33"><b>Slate 850</b><code>#232B33 · page</code></div>
+      <div class="swatch" style="background:var(--s800); color:var(--txt)" data-copy="#2A343E"><b>Slate 800</b><code>#2A343E · card</code></div>
+      <div class="swatch" style="background:var(--s700); color:var(--txt)" data-copy="#33404C"><b>Slate 700</b><code>#33404C · raised</code></div>
+      <div class="swatch" style="background:var(--steel); color:#1E252C" data-copy="#8FB4D9"><b>Steel</b><code>#8FB4D9 · primary</code></div>
+      <div class="swatch" style="background:var(--sage); color:#1E252C" data-copy="#8FB3A4"><b>Sage</b><code>#8FB3A4 · success</code></div>
+      <div class="swatch" style="background:var(--clay); color:#1E252C" data-copy="#C99A78"><b>Clay</b><code>#C99A78 · warning</code></div>
+      <div class="swatch" style="background:#DDE6EE; color:#1E252C" data-copy="#DDE6EE"><b>Text</b><code>#DDE6EE · not #fff</code></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="no">02</span><h2>Type — neutral to the point of politeness</h2><span class="ln"></span></div>
+    <div class="typegrid">
+      <div class="card spec-main">
+        <p class="big">Calm is a<br><span class="dim">typographic</span> decision.</p>
+        <p class="note">Inter Tight carries everything — its tight tracking keeps dark UI compact without feeling dense. Pair with JetBrains Mono for data, labels and code; mono on slate is the cheapest “pro tool” signal in design.</p>
+      </div>
+      <div class="spec-side">
+        <div class="card spec-cell"><p class="lbl">UI · Inter Tight</p><p class="ui-s">Headings at 700–800, tracking −0.02em. Never all-caps display.</p></div>
+        <div class="card spec-cell"><p class="lbl">Data · JetBrains Mono</p><p class="mono-s">0.421 BTC · 99.98% UPTIME · BUILD #4417 — figures align, vibes don’t.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="no">03</span><h2>Recipes — the physics of a calm dark UI</h2><span class="ln"></span></div>
+    <div class="recipes">
+      <div class="recipe card">
+        <div class="rhead"><h3>Layered slate surfaces</h3><button class="copy">copy</button></div>
+<pre><span class="c">/* black is flat; slate has depth */</span>
+<span class="k">:root</span>{
+  <span class="v">--bg</span>:#232B33;      <span class="c">/* L* ≈ 18 */</span>
+  <span class="v">--card</span>:#2A343E;    <span class="c">/* +2.5 L* each tier */</span>
+  <span class="v">--raise</span>:#33404C;
+}
+<span class="k">body</span>{ background:<span class="v">--bg</span>;
+  <span class="c">/* ambient wash, never a gradient headline */</span>
+  <span class="v">background-image</span>:
+   radial-gradient(900px 480px at 15% -10%,
+     rgba(143,180,217,.07), transparent 60%);
+}</pre>
+      </div>
+      <div class="recipe card">
+        <div class="rhead"><h3>Border-first elevation</h3><button class="copy">copy</button></div>
+<pre><span class="k">.card</span>{
+  <span class="v">border</span>:1px solid rgba(255,255,255,.07);
+  <span class="v">box-shadow</span>:
+    inset 0 1px 0 rgba(255,255,255,.04), <span class="c">/* top glint */</span>
+    0 20px 40px -30px rgba(0,0,0,.9);   <span class="c">/* soft depth */</span>
+}
+<span class="c">/* On slate, borders do what shadows do
+   on paper. Big blurry shadows = night mode
+   trying too hard. */</span></pre>
+      </div>
+      <div class="recipe card">
+        <div class="rhead"><h3>Muted accent system</h3><button class="copy">copy</button></div>
+<pre><span class="c">/* keep chroma ≈ half of a light-mode brand
+   color, then glow instead of shout */</span>
+<span class="k">.btn-primary</span>{
+  <span class="v">background</span>:rgba(143,180,217,.16);
+  <span class="v">color</span>:#8FB4D9;
+  <span class="v">border</span>:1px solid rgba(143,180,217,.35);
+  <span class="v">box-shadow</span>:0 10px 22px -12px rgba(143,180,217,.4);
+}
+<span class="k">.btn-primary:hover</span>{
+  <span class="v">box-shadow</span>:0 0 0 3px rgba(143,180,217,.12);
+}</pre>
+      </div>
+      <div class="recipe card">
+        <div class="rhead"><h3>Text on dark, correctly</h3><button class="copy">copy</button></div>
+<pre><span class="k">:root</span>{
+  <span class="v">--txt</span>:#DDE6EE;   <span class="c">/* ≈ 75% brightness.
+   #fff on dark halates on OLED */</span>
+  <span class="v">--txt-2</span>:#93A3B3;  <span class="c">/* secondary ≥ 4.5:1 */</span>
+  <span class="v">--txt-3</span>:#5F7080;  <span class="c">/* decorative labels only */</span>
+}
+<span class="c">/* test: squint. if a card "vibrates,"
+   lower its border white by 2%. */</span></pre>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="no">04</span><h2>Live mock — the 2 a.m. dashboard</h2><span class="ln"></span></div>
+    <div class="mock">
+      <div class="chrome">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="url">console.slate.sh/observability</span>
+      </div>
+      <div class="body">
+        <div>
+          <div class="statrow">
+            <div class="card stat"><p class="lbl">Uptime · 30d</p><p class="val">99.98<small>+0.02</small></p></div>
+            <div class="card stat"><p class="lbl">p95 latency</p><p class="val">142<small>ms</small></p></div>
+            <div class="card stat"><p class="lbl">Open alerts</p><p class="val">2<small style="color:var(--clay)">−3</small></p></div>
+          </div>
+          <div class="card">
+            <p class="lbl" style="font:500 10px/1 'JetBrains Mono'; letter-spacing:.22em; text-transform:uppercase; color:var(--txt-3); margin-bottom:8px">Requests / hr — last 14</p>
+            <div class="bars"><i style="height:34%"></i><i style="height:44%"></i><i style="height:38%"></i><i style="height:52%"></i><i style="height:47%"></i><i style="height:60%"></i><i class="hot" style="height:86%"></i><i class="hot" style="height:94%"></i><i style="height:72%"></i><i style="height:58%"></i><i style="height:63%"></i><i style="height:50%"></i><i style="height:44%"></i><i style="height:55%"></i></div>
+            <div class="btnrow">
+              <button class="btn p">Acknowledge alerts</button>
+              <button class="btn g">Open incident log</button>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="card" style="height:100%">
+            <p style="font:600 13px/1 'Inter Tight'; margin-bottom:8px">Events</p>
+            <div class="ev"><span>deploy · api@4.2.0</span><span class="pill ok">passed</span></div>
+            <div class="ev"><span>nightly build #4417</span><span class="pill ok">passed</span></div>
+            <div class="ev"><span>edge cache warm-up</span><span class="pill wait">pending</span></div>
+            <div class="ev"><span>cert rotation</span><span class="pill ok">done</span></div>
+            <p style="font:600 13px/1 'Inter Tight'; margin:18px 0 4px">Quiet mode</p>
+            <div class="toggle"><span>Mute non-critical</span><span class="sw on"></span></div>
+            <div class="toggle"><span>Digest at 09:00</span><span class="sw"></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="no">05</span><h2>Steal / skip</h2><span class="ln"></span></div>
+    <div class="dd">
+      <div class="card do"><h3>Steal this</h3><ul>
+        <li><b>L* ladder:</b> step surfaces by ~2.5 lightness each — depth you feel, not see.</li>
+        <li><b>Color as state,</b> never as decor: steel = action, sage = ok, clay = caution.</li>
+        <li>One top-edge highlight per card (<code>inset 0 1px 0 white/4%</code>) — sells “slab,” not “sticker.”</li>
+        <li>Radii 10–14px; rounder starts to feel toy-like on slate.</li>
+      </ul></div>
+      <div class="card dont"><h3>Skip this</h3><ul>
+        <li><b>#000 and #fff.</b> Pure black crushes shadows; pure white halates on the eye.</li>
+        <li>Full-saturation neon buttons — slate + fluoro reads as a gaming chair.</li>
+        <li>Big soft drop shadows everywhere: dark UI is built with borders.</li>
+        <li>Gradient text, glass panels, animated aurora — those are other aesthetics; pick one.</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sechead"><span class="no">06</span><h2>Go looking</h2><span class="ln"></span></div>
+    <p class="refs">Study: Linear (slate-dark done right), Vercel Geist, Raycast, Arc’s quiet panels · <a href="https://www.are.na/search?q=slate%20ui" target="_blank">Are.na “slate UI”</a> · <a href="https://godly.website" target="_blank">godly.website</a> filter “dark” · keywords: <em>blue-grey dark UI, muted accents, border elevation, low-glare</em>.</p>
+  </section>
+
+  <nav class="pager">
+    <a href="05-parchment.html"><small>← Previous</small>05 — Parchment / Vellum</a>
+    <a class="next" href="07-concrete.html"><small>Next →</small>07 — Concrete / Stone UI</a>
+  </nav>
+</div>
+
+<script>
+  document.querySelectorAll('.swatch,.copy').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      const txt = el.classList.contains('copy')
+        ? el.closest('.recipe').querySelector('pre').innerText
+        : el.dataset.copy;
+      (navigator.clipboard?.writeText(txt) ?? Promise.reject())
+        .catch(()=>{const t=document.createElement('textarea');t.value=txt;document.body.append(t);t.select();document.execCommand('copy');t.remove();});
+      if(el.classList.contains('copy')){const o=el.textContent; el.textContent='copied'; setTimeout(()=>el.textContent=o,900);}
+      else{const b=el.querySelector('b').textContent; el.querySelector('b').textContent='Copied'; setTimeout(()=>el.querySelector('b').textContent=b,900);}
+    });
+  });
+  document.querySelectorAll('.toggle .sw').forEach(s=>s.addEventListener('click',()=>s.classList.toggle('on')));
+</script>
+</body>
+</html>

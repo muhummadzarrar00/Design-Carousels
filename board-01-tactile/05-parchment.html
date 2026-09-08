@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>05 · Parchment / Vellum — Tactile Inspiration Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Cinzel:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --vellum:#F0E4C8; --vellum-2:#E8D9B8; --vellum-3:#F6EED9;
+    --umber:#4A3524; --umber-soft:#7A6350; --wax:#8C2F27; --gold:#A67C2E; --olive:#6B7052;
+  }
+  *{box-sizing:border-box; margin:0; padding:0}
+  body{
+    background:var(--vellum); color:var(--umber);
+    font:400 17.5px/1.75 "EB Garamond", Georgia, serif;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='f'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='180' height='180' filter='url(%23f)' opacity='0.05'/></svg>");
+  }
+  /* page vignette + edge scorch */
+  body::after{content:""; position:fixed; inset:0; pointer-events:none; z-index:50;
+    box-shadow:inset 0 0 180px 30px rgba(74,53,36,.16), inset 0 0 40px rgba(122,74,33,.12)}
+  .wrap{max-width:1080px; margin:0 auto; padding:72px 32px 96px; position:relative}
+  a{color:inherit}
+
+  /* ---------- folio header ---------- */
+  .topline{display:flex; justify-content:space-between; align-items:center; margin-bottom:40px;
+    font:500 11px/1 "Cinzel"; letter-spacing:.3em; text-transform:uppercase; color:var(--umber-soft)}
+  .topline a{text-decoration:none; border-bottom:1px solid var(--gold); padding-bottom:2px}
+  .topline a:hover{color:var(--wax)}
+
+  /* ---------- masthead ---------- */
+  .masthead{text-align:center; padding:56px 40px 48px; margin-bottom:28px; position:relative; background:
+    radial-gradient(120% 90% at 50% 40%, var(--vellum-3) 0%, var(--vellum-2) 78%, rgba(150,115,60,.25) 100%);
+    /* deckled edge via uneven radius + mask */
+    border-radius:18px 6px 20px 8px / 8px 18px 6px 22px;
+    filter:drop-shadow(0 14px 22px rgba(74,53,36,.18));
+  }
+  .masthead::before{content:""; position:absolute; inset:8px; border:1px solid rgba(166,124,46,.55);
+    border-radius:inherit; pointer-events:none}
+  .masthead::after{content:""; position:absolute; inset:13px; border:1px double rgba(166,124,46,.35);
+    border-radius:inherit; pointer-events:none}
+  .ornament{color:var(--gold); font-size:22px; letter-spacing:1em; margin:14px 0 20px}
+  .kicker{font:500 12px/1 "Cinzel"; letter-spacing:.42em; text-transform:uppercase; color:var(--wax)}
+  h1{font:700 clamp(40px,6.6vw,76px)/1.04 "Cormorant Garamond"; letter-spacing:.005em; margin:16px 0 10px}
+  h1 .small{display:block; font:500 italic 24px/1.3 "Cormorant Garamond"; color:var(--umber-soft); margin-top:10px}
+  .sub{max-width:620px; margin:14px auto 0; color:var(--umber-soft); font-style:italic}
+  .chips{display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:24px}
+  .chip{font:500 10.5px/1 "Cinzel"; letter-spacing:.22em; text-transform:uppercase; padding:9px 14px;
+    border:1px solid rgba(74,53,36,.35); background:rgba(246,238,217,.7); border-radius:2px}
+
+  section{margin:64px 0}
+  h2.sec{display:flex; align-items:center; gap:18px; margin-bottom:26px}
+  h2.sec::before,h2.sec::after{content:"❦"; color:var(--gold); font-size:15px}
+  h2.sec span{font:700 clamp(20px,2.8vw,28px)/1.2 "Cormorant Garamond"; letter-spacing:.06em; text-transform:uppercase; white-space:nowrap}
+  .panel{background:var(--vellum-3); border:1px solid rgba(74,53,36,.28); border-radius:6px 14px 8px 16px;
+    padding:32px; box-shadow:0 18px 40px -22px rgba(74,53,36,.45), inset 0 0 60px rgba(150,115,60,.08)}
+
+  /* ---------- palette ---------- */
+  .palette{display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:20px}
+  .swatch{height:150px; border-radius:4px 12px 6px 14px; padding:14px; display:flex; flex-direction:column;
+    justify-content:flex-end; cursor:copy; border:1px solid rgba(74,53,36,.3); position:relative;
+    box-shadow:inset 0 0 30px rgba(74,53,36,.12), 0 10px 18px -12px rgba(74,53,36,.5);
+    transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+  .swatch:hover{transform:translateY(-5px) rotate(.6deg)}
+  .swatch b{font:700 10px/1 "Cinzel"; letter-spacing:.22em; text-transform:uppercase; margin-bottom:6px}
+  .swatch code{font:400 12.5px/1.4 "EB Garamond"; opacity:.9}
+
+  /* ---------- type ---------- */
+  .typegrid{display:grid; grid-template-columns:1.25fr 1fr; gap:20px}
+  .spec-main{position:relative}
+  .spec-main .big{font:700 clamp(38px,5vw,60px)/1.08 "Cormorant Garamond"; letter-spacing:.01em}
+  .spec-main .big .it{font-style:italic; font-weight:500; color:var(--wax)}
+  .spec-main .note{margin-top:18px; font-size:15.5px; color:var(--umber-soft)}
+  .spec-side{display:flex; flex-direction:column; gap:20px}
+  .spec-cell{flex:1; padding:22px 24px}
+  .spec-cell .lbl{font:500 9.5px/1 "Cinzel"; letter-spacing:.3em; text-transform:uppercase; color:var(--gold); margin-bottom:10px}
+  .g-s{font:500 21px/1.4 "EB Garamond"}
+  .c-s{font:500 18px/1.5 "Cormorant Garamond"; letter-spacing:.04em}
+
+  /* ---------- recipes ---------- */
+  .recipes{display:grid; grid-template-columns:repeat(auto-fit,minmax(330px,1fr)); gap:20px}
+  .recipe{position:relative; background:rgba(246,238,217,.6); border:1px solid rgba(74,53,36,.3); border-radius:4px 10px 6px 12px; overflow:hidden}
+  .recipe .rhead{display:flex; justify-content:space-between; align-items:center; padding:18px 22px 10px}
+  .recipe h3{font:700 13px/1 "Cinzel"; letter-spacing:.14em; text-transform:uppercase}
+  .recipe pre{margin:0; padding:0 22px 20px; overflow:auto; font:400 12.3px/1.75 ui-monospace,"SFMono-Regular",Consolas,monospace; color:#54402C}
+  .copy{border:1px solid var(--umber); background:transparent; color:var(--umber); font:500 9.5px/1 "Cinzel";
+    letter-spacing:.18em; text-transform:uppercase; padding:7px 10px; cursor:pointer; border-radius:2px}
+  .copy:hover{background:var(--umber); color:var(--vellum-3)}
+
+  /* ---------- mock invitation ---------- */
+  .invite-outer{display:flex; justify-content:center; padding:46px 20px; background:
+    radial-gradient(90% 120% at 50% 0%, rgba(166,124,46,.10), transparent 60%)}
+  .invite{width:min(560px,100%); background:var(--vellum-3); position:relative; text-align:center; padding:52px 48px 46px;
+    border-radius:6px 14px 8px 18px;
+    box-shadow:0 2px 0 rgba(74,53,36,.15), 0 30px 50px -24px rgba(74,53,36,.5), inset 0 0 80px rgba(150,115,60,.10);
+    border:1px solid rgba(74,53,36,.3)}
+  .invite .frame{position:absolute; inset:14px; border:1px solid rgba(166,124,46,.5); border-radius:inherit; pointer-events:none}
+  .invite .frame2{position:absolute; inset:20px; border:3px double rgba(166,124,46,.3); border-radius:inherit; pointer-events:none}
+  .invite .k{font:500 10.5px/1 "Cinzel"; letter-spacing:.4em; text-transform:uppercase; color:var(--umber-soft)}
+  .invite h3{font:700 clamp(30px,4.6vw,42px)/1.12 "Cormorant Garamond"; margin:18px 0 6px}
+  .invite .em{font:italic 500 19px/1.5 "Cormorant Garamond"; color:var(--umber-soft)}
+  .invite .rule{margin:22px auto; width:120px; border-top:1px solid var(--gold); position:relative}
+  .invite .rule::after{content:"✦"; position:absolute; left:50%; top:-9px; transform:translateX(-50%); background:var(--vellum-3); padding:0 8px; color:var(--gold); font-size:12px}
+  .invite .when{font:500 12px/1.9 "Cinzel"; letter-spacing:.18em; text-transform:uppercase}
+  .seal{width:74px; height:74px; margin:26px auto 8px; border-radius:50%; background:
+    radial-gradient(circle at 34% 28%, #B14A3C 0 22%, var(--wax) 55%, #63201B 100%);
+    box-shadow:inset 0 -6px 10px rgba(0,0,0,.35), inset 0 4px 6px rgba(255,255,255,.25), 0 8px 14px -6px rgba(99,32,27,.6);
+    display:flex; align-items:center; justify-content:center;
+    font:700 24px/1 "Cormorant Garamond"; color:#F4C9BF; position:relative; transform:rotate(-6deg)}
+  .seal::before{content:""; position:absolute; inset:6px; border:1.5px solid rgba(244,201,191,.4); border-radius:50%}
+  .rsvp{margin-top:18px; font:500 10.5px/1 "Cinzel"; letter-spacing:.34em; text-transform:uppercase;
+    border:1px solid var(--umber); padding:13px 22px; background:transparent; cursor:pointer; color:var(--umber);
+    border-radius:2px; box-shadow:0 3px 0 rgba(74,53,36,.25); transition:all .15s}
+  .rsvp:hover{background:var(--umber); color:var(--vellum-3)}
+  .rsvp:active{transform:translateY(2px); box-shadow:0 1px 0 rgba(74,53,36,.25)}
+  .marginalia{position:absolute; left:-120px; top:120px; width:110px; text-align:right;
+    font:italic 500 13.5px/1.5 "Cormorant Garamond"; color:var(--umber-soft); transform:rotate(-1.5deg)}
+  .invite-outer{position:relative}
+  @media(max-width:1000px){ .marginalia{display:none} }
+
+  /* ---------- do/don't ---------- */
+  .dd{display:grid; grid-template-columns:1fr 1fr; gap:20px}
+  .do,.dont{padding:26px 28px}
+  .do h3,.dont h3{font:700 12px/1 "Cinzel"; letter-spacing:.24em; text-transform:uppercase; margin-bottom:14px}
+  .do h3{color:var(--olive)} .dont h3{color:var(--wax)}
+  .do ul,.dont ul{list-style:none}
+  .do li,.dont li{padding-left:26px; position:relative; margin-bottom:10px; font-size:15.5px}
+  .do li::before{content:"✦"; position:absolute; left:2px; color:var(--olive); font-size:13px}
+  .dont li::before{content:"✕"; position:absolute; left:2px; color:var(--wax); font-size:13px; top:2px}
+
+  .refs{font-size:15.5px; color:var(--umber-soft); font-style:italic}
+  .refs a{font-style:normal; color:var(--umber); text-decoration:underline; text-decoration-color:var(--gold); text-underline-offset:3px}
+  nav.pager{display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:72px}
+  nav.pager a{text-decoration:none; background:var(--vellum-3); border:1px solid rgba(74,53,36,.3); border-radius:4px 12px 6px 14px;
+    padding:22px 26px; font:500 14px/1.3 "Cinzel"; letter-spacing:.1em; box-shadow:0 10px 24px -14px rgba(74,53,36,.5)}
+  nav.pager a small{display:block; font-size:9.5px; letter-spacing:.3em; text-transform:uppercase; color:var(--umber-soft); margin-bottom:8px}
+  nav.pager a.next{text-align:right; background:var(--umber); color:var(--vellum-3)}
+  nav.pager a.next small{color:rgba(240,228,200,.6)}
+  @media(max-width:860px){ .typegrid,.dd{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topline">
+    <span>Folio I · Recto</span>
+    <span>Tactile Board — Panel 05 / 07</span>
+    <a href="index.html">Return to the board</a>
+  </div>
+
+  <header class="masthead">
+    <p class="kicker">Parchment · Vellum · Aged Paper</p>
+    <div class="ornament">✦ ❧ ✦</div>
+    <h1>Interfaces Aged<br><span class="small">like something worth keeping.</span></h1>
+    <p class="sub">Warm cream stock, soft scorched edges, fibers you can almost feel, and ink that is never quite black. The style for things told slowly — chapters, provenances, ceremonies.</p>
+    <div class="chips">
+      <span class="chip">Best for: heritage brands</span><span class="chip">storytelling</span>
+      <span class="chip">publishing</span><span class="chip">invitations</span><span class="chip">whisky &amp; wine</span>
+    </div>
+  </header>
+
+  <figure style="margin:0 0 56px; border-radius:8px 16px 10px 18px; overflow:hidden; border:1px solid rgba(74,53,36,.3); box-shadow:0 24px 40px -24px rgba(74,53,36,.5)">
+    <img src="assets/plate-05-parchment.jpg" alt="Aged parchment with deckled edges" style="display:block; width:100%">
+    <figcaption style="background:var(--vellum-3); padding:10px 16px; font:500 10px/1 'Cinzel'; letter-spacing:.26em; text-transform:uppercase; color:var(--umber-soft); border-top:1px solid rgba(74,53,36,.2)">Ref plate — deckled edge, foxing, candlelight gradient</figcaption>
+  </figure>
+
+  <section>
+    <h2 class="sec"><span>The Palette — no ink is black</span></h2>
+    <div class="palette">
+      <div class="swatch" style="background:#F6EED9; color:var(--umber)" data-copy="#F6EED9"><b>Parchment Light</b><code>#F6EED9 · page</code></div>
+      <div class="swatch" style="background:#E8D9B8; color:var(--umber)" data-copy="#E8D9B8"><b>Vellum Warm</b><code>#E8D9B8 · fills</code></div>
+      <div class="swatch" style="background:#4A3524; color:#F0E4C8" data-copy="#4A3524"><b>Iron Gall Umber</b><code>#4A3524 · text</code></div>
+      <div class="swatch" style="background:#8C2F27; color:#F0E4C8" data-copy="#8C2F27"><b>Seal Wax Red</b><code>#8C2F27 · accent</code></div>
+      <div class="swatch" style="background:#A67C2E; color:#F6EED9" data-copy="#A67C2E"><b>Leaf Gold</b><code>#A67C2E · rules</code></div>
+      <div class="swatch" style="background:#6B7052; color:#F0E4C8" data-copy="#6B7052"><b>Pressed Olive</b><code>#6B7052 · support</code></div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sec"><span>The Type — humanist, unhurried</span></h2>
+    <div class="typegrid">
+      <div class="panel spec-main">
+        <p class="big">Ink that <span class="it">breathes,</span><br>letters that bow.</p>
+        <p class="note">Cormorant Garamond for anything displayed — it has quill-thin hairlines that read as calligraphy even when set digitally. EB Garamond at 17–18px / 1.75 for the work. Reserve Cinzel (engraved caps, huge tracking) for labels only; it is a chisel, not a pen.</p>
+      </div>
+      <div class="spec-side">
+        <div class="panel spec-cell"><p class="lbl">Body · EB Garamond</p><p class="g-s">Chapters begin where the reader forgets the screen exists.</p></div>
+        <div class="panel spec-cell"><p class="lbl">Labels · Cinzel</p><p class="c-s">CHAPTER · PROVENANCE · MMXXVI</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sec"><span>Recipes — aging, by CSS</span></h2>
+    <div class="recipes">
+      <div class="recipe">
+        <div class="rhead"><h3>Paper-fiber grain</h3><button class="copy">copy</button></div>
+<pre>body{
+  background:#F0E4C8;
+  background-image:url("noise.svg");
+  /* feTurbulence fractalNoise
+     baseFrequency .8, opacity .05 —
+     the tooth of the sheet */
+}</pre>
+      </div>
+      <div class="recipe">
+        <div class="rhead"><h3>Aged edges (vignette)</h3><button class="copy">copy</button></div>
+<pre>.sheet{
+  background:radial-gradient(
+    120% 90% at 50% 40%,
+    #F6EED9 0%, #E8D9B8 78%,
+    rgba(150,115,60,.25) 100%);
+}
+body::after{ /* scorch all pages */
+  content:""; position:fixed; inset:0;
+  pointer-events:none;
+  box-shadow:inset 0 0 180px 30px
+    rgba(74,53,36,.16);
+}</pre>
+      </div>
+      <div class="recipe">
+        <div class="rhead"><h3>Deckle wobble</h3><button class="copy">copy</button></div>
+<pre>/* "torn" radius trick — uneven
+   corners fake a cut sheet */
+.deckled{
+  border-radius:6px 14px 8px 18px
+              / 12px 6px 16px 8px;
+  filter:drop-shadow(0 14px 22px
+    rgba(74,53,36,.18));
+}
+/* connoisseurs: SVG
+   feTurbulence + feDisplacementMap
+   (scale 2–4) on the edge */</pre>
+      </div>
+      <div class="recipe">
+        <div class="rhead"><h3>Wax seal, pure CSS</h3><button class="copy">copy</button></div>
+<pre>.seal{
+  width:74px; aspect-ratio:1;
+  border-radius:50%;
+  background:radial-gradient(
+    circle at 34% 28%,
+    #B14A3C 0 22%, #8C2F27 55%,
+    #63201B 100%);
+  box-shadow:
+    inset 0 -6px 10px rgba(0,0,0,.35),
+    inset 0 4px 6px rgba(255,255,255,.25),
+    0 8px 14px -6px rgba(99,32,27,.6);
+}</pre>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sec"><span>Live mock — an invitation, not a landing page</span></h2>
+    <div class="panel" style="padding:0; overflow:visible">
+      <div class="invite-outer">
+        <aside class="marginalia">N.B. — set the leading loose; aged paper wants air between its lines.</aside>
+        <div class="invite">
+          <span class="frame"></span><span class="frame2"></span>
+          <p class="k">The Chapter House presents</p>
+          <h3>On Paper:<br>A Reading in Five Parts</h3>
+          <p class="em">an evening of essays on the printed word,<br>with letterpress demonstrations</p>
+          <div class="rule"></div>
+          <p class="when">Thursday · the fourteenth of June<br>Half past seven · The Old Bindery</p>
+          <div class="seal">C</div>
+          <button class="rsvp">Send thy regrets or replies</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sec"><span>Steal this / skip this</span></h2>
+    <div class="dd">
+      <div class="do panel"><h3>Steal this</h3><ul>
+        <li>Umber text on cream (≈10:1 contrast) — “old” never has to mean unreadable.</li>
+        <li>One ornament system: ❧ ✦ ¶ — use it for dividers only, never decoration soup.</li>
+        <li>Candlelight gradient: every sheet slightly brighter at top-center.</li>
+        <li>Small caps + generous letter-spacing for labels; the period reads as engraved.</li>
+      </ul></div>
+      <div class="dont panel"><h3>Skip this</h3><ul>
+        <li>Blackletter everywhere — Fraktur in a nav bar is a costume, not a style.</li>
+        <li>Full-color photos: duotone them to umber or don’t ship them.</li>
+        <li>Gold gradients + drop shadows = wedding-invite kitsch. Gold lives in hairlines.</li>
+        <li>Heavy noise (opacity &gt; 8%): it reads as dithering, not vellum.</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sec"><span>Go looking</span></h2>
+    <p class="refs">Are.na <a href="https://www.are.na/search?q=parchment" target="_blank">“parchment / vellum”</a> · study folios at the <a href="https://www.bl.uk/collection-items/gutenberg-bible" target="_blank">British Library</a> · brand references: Aesop apothecary pages, Penguin clothbacks, Chobani Heritage labels, whisky “cask” pages · keywords: <em>manuscript marginalia, deckled edge, iron gall ink, letterpress</em>.</p>
+  </section>
+
+  <nav class="pager">
+    <a href="04-newsprint.html"><small>← Previous</small>04 — Newsprint UI</a>
+    <a class="next" href="06-slate.html"><small>Next →</small>06 — Slate / Charcoal Minimal</a>
+  </nav>
+</div>
+
+<script>
+  document.querySelectorAll('.swatch,.copy').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      const txt = el.classList.contains('copy')
+        ? el.closest('.recipe').querySelector('pre').innerText
+        : el.dataset.copy;
+      (navigator.clipboard?.writeText(txt) ?? Promise.reject())
+        .catch(()=>{const t=document.createElement('textarea');t.value=txt;document.body.append(t);t.select();document.execCommand('copy');t.remove();});
+      if(el.classList.contains('copy')){const o=el.textContent; el.textContent='copied ✓'; setTimeout(()=>el.textContent=o,900);}
+      else{const b=el.querySelector('b').textContent; el.querySelector('b').textContent='Copied '+txt; setTimeout(()=>el.querySelector('b').textContent=b,900);}
+    });
+  });
+</script>
+</body>
+</html>
