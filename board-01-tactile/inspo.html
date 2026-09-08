@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inspo shots — AI design references · 7 tactile aesthetics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,900;1,9..144,500&family=IBM+Plex+Mono:wght@400;500&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{ --bg:#E9E6DE; --ink:#1D1B16; --ink-2:#6E6A5F; --line:rgba(29,27,22,.18); --coral:#C8543F; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:
+    radial-gradient(1200px 500px at 50% -5%, #F2EFE7, transparent 70%),
+    var(--bg); color:var(--ink); font:400 15px/1.6 "Work Sans", system-ui, sans-serif;
+    background-attachment:fixed}
+  body::after{content:""; position:fixed; inset:0; pointer-events:none; opacity:.4; mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='140' height='140' filter='url(%23n)' opacity='.12'/></svg>")}
+  .wrap{max-width:1500px; margin:0 auto; padding:56px 34px 100px; position:relative}
+  header{text-align:center; margin-bottom:20px}
+  .k{font:500 10.5px/1 "IBM Plex Mono"; letter-spacing:.3em; text-transform:uppercase; color:var(--ink-2)}
+  .k a{color:var(--coral); text-decoration:none} .k a:hover{text-decoration:underline}
+  h1{font:900 clamp(34px,5vw,58px)/1.05 "Fraunces"; letter-spacing:-.012em; margin:14px 0 8px}
+  h1 em{font-weight:500; font-style:italic}
+  .deck{color:var(--ink-2); max-width:64ch; margin:0 auto}
+  .strip{display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin:22px 0 8px}
+  .strip a{font:600 11px/1 "Work Sans"; letter-spacing:.14em; text-transform:uppercase; color:var(--ink);
+    text-decoration:none; border:1px solid var(--line); background:rgba(255,255,255,.5); padding:9px 13px; border-radius:99px}
+  .strip a:hover{background:var(--ink); color:var(--bg)}
+
+  .style{margin-top:64px}
+  .shead{display:flex; align-items:baseline; gap:16px; border-bottom:1px solid var(--line); padding-bottom:12px; margin-bottom:22px}
+  .shead .no{font:500 12px/1 "IBM Plex Mono"; color:var(--coral)}
+  .shead h2{font:900 26px/1 "Fraunces"}
+  .shead .kw{margin-left:auto; font:400 11px/1 "IBM Plex Mono"; color:var(--ink-2); text-align:right}
+  .duo{display:grid; grid-template-columns:1fr 1fr; gap:22px}
+  @media(max-width:980px){ .duo{grid-template-columns:1fr} }
+  .shot{background:#fff; border:1px solid var(--line); border-radius:14px; overflow:hidden; position:relative;
+    box-shadow:0 18px 40px -22px rgba(29,27,22,.35); transition:transform .25s cubic-bezier(.2,.8,.25,1), box-shadow .25s}
+  .shot:hover{transform:translateY(-5px); box-shadow:0 30px 60px -25px rgba(29,27,22,.45)}
+  .shot img{display:block; width:100%; height:auto}
+  .shot .lbl{position:absolute; top:12px; left:12px; z-index:2; font:600 9.5px/1 "IBM Plex Mono"; letter-spacing:.24em;
+    text-transform:uppercase; background:rgba(29,27,22,.85); color:#F2EFE7; padding:7px 10px; border-radius:99px}
+  .shot .open{position:absolute; top:12px; right:12px; z-index:2; font:600 9.5px/1 "Work Sans"; letter-spacing:.18em;
+    text-transform:uppercase; background:#F2EFE7; border:1px solid rgba(29,27,22,.2); color:var(--ink); padding:8px 11px; border-radius:99px;
+    text-decoration:none; opacity:0; transform:translateY(-4px); transition:.2s}
+  .shot:hover .open{opacity:1; transform:none}
+  .note{margin-top:56px; text-align:center; font:400 12px/1.8 "IBM Plex Mono"; color:var(--ink-2)}
+  .note b{color:var(--ink)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="k">Tactile board — AI reference shots · <a href="index.html">← back to the panel board</a></p>
+    <h1>Seven aesthetics, <em>as mockups.</em></h1>
+    <p class="deck">Web + mobile UI references generated per style — drop them straight into Milanote, Figma, a FigJam board or a mood deck. Hover a shot for “open full size.”</p>
+    <nav class="strip">
+      <a href="#s1">Papercraft</a><a href="#s2">Editorial</a><a href="#s3">Riso</a><a href="#s4">Newsprint</a>
+      <a href="#s5">Parchment</a><a href="#s6">Slate</a><a href="#s7">Concrete</a>
+    </nav>
+  </header>
+
+  <section class="style" id="s1"><div class="shead"><span class="no">01</span><h2>Paper UI / Papercraft</h2><span class="kw">stacked sheets · soft drops · pastel cardstock · die-cut blobs</span></div>
+    <div class="duo">
+      <figure class="shot"><span class="lbl">Web</span><a class="open" href="inspo/01-papercraft-web.png" target="_blank">open ↗</a><img src="inspo/01-papercraft-web.png" alt="Papercraft website UI"></figure>
+      <figure class="shot"><span class="lbl">Mobile</span><a class="open" href="inspo/01-papercraft-mobile.png" target="_blank">open ↗</a><img src="inspo/01-papercraft-mobile.png" alt="Papercraft app UI"></figure>
+    </div>
+  </section>
+
+  <section class="style" id="s2"><div class="shead"><span class="no">02</span><h2>Editorial / Print-inspired</h2><span class="kw">serif mastheads · column rules · pull quotes · spot red</span></div>
+    <div class="duo">
+      <figure class="shot"><span class="lbl">Web</span><a class="open" href="inspo/02-editorial-web.png" target="_blank">open ↗</a><img src="inspo/02-editorial-web.png" alt="Editorial website UI"></figure>
+      <figure class="shot"><span class="lbl">Mobile</span><a class="open" href="inspo/02-editorial-mobile.png" target="_blank">open ↗</a><img src="inspo/02-editorial-mobile.png" alt="Editorial app UI"></figure>
+    </div>
+  </section>
+
+  <section class="style" id="s3"><div class="shead"><span class="no">03</span><h2>Riso / Risograph</h2><span class="kw">fluoro inks · overprint · misregistration · halftone grain</span></div>
+    <div class="duo">
+      <figure class="shot"><span class="lbl">Web</span><a class="open" href="inspo/03-riso-web.png" target="_blank">open ↗</a><img src="inspo/03-riso-web.png" alt="Riso website UI"></figure>
+      <figure class="shot"><span class="lbl">Mobile</span><a class="open" href="inspo/03-riso-mobile.png" target="_blank">open ↗</a><img src="inspo/03-riso-mobile.png" alt="Riso app UI"></figure>
+    </div>
+  </section>
+
+  <section class="style" id="s4"><div class="shead"><span class="no">04</span><h2>Newsprint UI</h2><span class="kw">cream stock · hairline rules · dot-screen photos · mono datelines</span></div>
+    <div class="duo">
+      <figure class="shot"><span class="lbl">Web</span><a class="open" href="inspo/04-newsprint-web.png" target="_blank">open ↗</a><img src="inspo/04-newsprint-web.png" alt="Newsprint website UI"></figure>
+    </div>
+  </section>
+
+  <section class="style" id="s5"><div class="shead"><span class="no">05</span><h2>Parchment / Vellum</h2><span class="kw">warm cream · deckled edges · wax seals · engraved caps</span></div>
+    <div class="duo">
+      <figure class="shot"><span class="lbl">Web</span><a class="open" href="inspo/05-parchment-web.png" target="_blank">open ↗</a><img src="inspo/05-parchment-web.png" alt="Parchment website UI"></figure>
+    </div>
+  </section>
+
+  <section class="style" id="s6"><div class="shead"><span class="no">06</span><h2>Slate / Charcoal minimalism</h2><span class="kw">blue-grey layers · 1px borders · muted accents · night calm</span></div>
+    <div class="duo">
+      <figure class="shot"><span class="lbl">Web</span><a class="open" href="inspo/06-slate-web.png" target="_blank">open ↗</a><img src="inspo/06-slate-web.png" alt="Slate dashboard UI"></figure>
+    </div>
+  </section>
+
+  <section class="style" id="s7"><div class="shead"><span class="no">07</span><h2>Concrete / Stone UI</h2><span class="kw">cast slabs · pores &amp; seams · engraved type · safety orange</span></div>
+    <div class="duo">
+      <figure class="shot"><span class="lbl">Web</span><a class="open" href="inspo/07-concrete-web.png" target="_blank">open ↗</a><img src="inspo/07-concrete-web.png" alt="Concrete website UI"></figure>
+    </div>
+  </section>
+
+  <p class="note"><b>Missing 4 mobile shots</b> (newsprint · parchment · slate · concrete) — generation cap hit; ask for “continue” to complete the set.<br>Recipes for building these looks in real CSS live in the <a href="index.html" style="color:var(--coral)">panel board</a>.</p>
+</div>
+</body>
+</html>

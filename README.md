@@ -77,3 +77,7 @@ Open `board-01-tactile/index.html` (or serve the folder with `python3 -m http.se
 | 07 | `07-concrete.html` | Concrete / Stone — cast slabs, engraved type, safety orange |
 
 All self-contained: one HTML file per panel, Google Fonts + inline SVG noise only. PNGs of panels need a headless browser run elsewhere (this sandbox blocks Chromium downloads); the live HTML is the deliverable.
+
+## Board 01 · addendum — AI mockup references
+
+`board-01-tactile/inspo.html` — one **web shot + one mobile shot per aesthetic** (10/14 generated, rest in next session), saved in `board-01-tactile/inspo/`. These are pure inspiration images (drag into Milanote/Figma/Pinterest-style boards); the HTML panels above remain the "how to build it" recipes.
