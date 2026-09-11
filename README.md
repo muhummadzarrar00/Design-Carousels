@@ -50,3 +50,27 @@ Save this. Follow @zarrar.n.ai for more design interventions.
 | 09 | `carousel-02/09-aurora.png` | AI products · startup heroes · creative tools |
 | 10 | `carousel-02/10-cheat-sheet.png` | Saveable recap + BEST FOR |
 | 11 | `carousel-02/11-cta.png` | CTA — **@zarrar.n.ai** |
+
+---
+
+# Set 03 — Inspiration board: Textures & Type (client pitch)
+
+Not an insta set — a **visual inspiration board** for client style pitches. 2:3 tiles (1000×1500, Pinterest-ready).
+
+**Concept:** one identical neutral "spec card" template; the style lives *only* inside the browser mockup. All 7 mockups show the **same fictional coffee-roastery site (ALTA ROAST)** with the same layout, so clients compare directions like-for-like — same site, seven skins.
+
+| # | File | Style | Traits line |
+|---|------|-------|-------------|
+| 00 | `inspo-board/00-template.png` | Blank reusable template | — |
+| 01 | `inspo-board/01-paper-ui.png` | Paper UI / Papercraft | Cut-paper layers · Soft drop shadows · Tactile warmth |
+| 02 | `inspo-board/02-editorial-print.png` | Editorial / Print | Serif headlines · Column grids · Pull quotes |
+| 03 | `inspo-board/03-riso.png` | Risograph | Grainy overlays · Misregistered inks · Fluorescent pops |
+| 04 | `inspo-board/04-newsprint.png` | Newsprint UI | Cream paper · Halftone dots · Dense serif columns |
+| 05 | `inspo-board/05-parchment.png` | Parchment / Vellum | Warm cream tones · Paper grain · Soft aged edges |
+| 06 | `inspo-board/06-slate.png` | Slate minimalism | Slate grey-blue base · Muted accents · Low-glare calm |
+| 07 | `inspo-board/07-concrete.png` | Concrete / Stone | Raw concrete texture · Slab cards · Architectural grid |
+
+- `inspo-board/preview-contact-sheet.png` — the whole board at a glance
+- `inspo-board/alts/` — superseded v1s (keep in case a client prefers the moodier parchment / grittier concrete)
+- Pitch line: *"Same site, seven directions — pick the skin that fits your brand."*
+- To re-skin for a specific client pitch, regenerate the browser content only; the template (`00`) keeps the board consistent.
